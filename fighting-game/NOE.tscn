@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://ben8x18wuvevq"]
+
+[ext_resource type="PackedScene" uid="uid://cd7t7xpmbu3cx" path="res://FighterBase.tscn" id="1_ubaqj"]
+[ext_resource type="Script" uid="uid://q4desb2emonh" path="res://noe_climb.gd" id="2_t5x6t"]
+
+[node name="NOE_FighterBase" unique_id=1814184204 instance=ExtResource("1_ubaqj")]
+script = ExtResource("2_t5x6t")

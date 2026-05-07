@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://btjqgmgnfkknx"]
+
+[ext_resource type="PackedScene" uid="uid://cd7t7xpmbu3cx" path="res://FighterBase.tscn" id="1_qngl1"]
+
+[node name="President_FighterBase" unique_id=1814184204 instance=ExtResource("1_qngl1")]
+speed = 450.0
+jump_velocity = -500.0
+weight = 0.7

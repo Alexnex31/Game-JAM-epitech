@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://jhlbjbu85xnd"]
+
+[ext_resource type="PackedScene" uid="uid://cd7t7xpmbu3cx" path="res://FighterBase.tscn" id="1_pjgyw"]
+
+[node name="Cecilya_FighterBase" unique_id=1814184204 instance=ExtResource("1_pjgyw")]

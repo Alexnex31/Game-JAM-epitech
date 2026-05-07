@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cd7t7xpmbu3cx"]
+
+[ext_resource type="Script" uid="uid://cmgjio17olcfa" path="res://scripts/FighterBase.gd" id="1_fg743"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wabvh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ah1k6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xa2lc"]
+
+[node name="FighterBase" type="CharacterBody2D" unique_id=1814184204]
+script = ExtResource("1_fg743")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1207794945]
+shape = SubResource("CapsuleShape2D_wabvh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=956476771]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1460908990]
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1052360381]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=594891278]
+shape = SubResource("RectangleShape2D_ah1k6")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1044187355]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=546312405]
+position = Vector2(10, 0)
+shape = SubResource("RectangleShape2D_xa2lc")
