@@ -11,6 +11,16 @@ var current_hp: float
 var knockback_velocity: Vector2 = Vector2.ZERO
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+var is_grabbing: bool = false
+var is_being_grabbed: bool = false
+var grabbed_opponent: Fighter = null # Référence vers celui qu'on a attrapé
+
+# 1 = regarde à droite, -1 = regarde à gauche
+var facing_direction: int = 1 
+
+# La fameuse fonction manquante
+func get_facing_direction() -> int:
+	return facing_direction
 
 func get_input_string(action_name: String) -> String:
 	return action_name + "_" + str(player_id)
@@ -43,6 +53,8 @@ func _physics_process(delta):
 	if knockback_velocity.length() < 100: 
 		if direction:
 			velocity.x = direction * speed
+			facing_direction = sign(direction) # sign() renvoie 1 ou -1
+			update_facing()
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
 
@@ -59,6 +71,30 @@ func _physics_process(delta):
 		$AnimationPlayer.play("attack_normal")
 	# 5. Déplacer le personnage
 	move_and_slide()
+	if is_being_grabbed:
+		# Si on est tenu, on ne fait rien, on suit la position de l'attaquant
+		return
+
+	# Lancement du Grab
+	var grab_action = get_input_string("grab")
+	if Input.is_action_just_pressed(grab_action) and is_on_floor() and not is_attacking:
+		start_grab()
+		
+		
+func update_facing():
+	# 1. On tourne l'image (le Sprite)
+	if facing_direction == 1:
+		$Sprite2D.flip_h = false
+	else:
+		$Sprite2D.flip_h = true
+		
+	# 2. On déplace les Hitboxes du bon côté
+	# On utilise abs() pour forcer la valeur en positif, puis on multiplie par 1 ou -1
+	if has_node("Hitbox"):
+		$Hitbox.position.x = abs($Hitbox.position.x) * facing_direction
+		
+	if has_node("GrabArea"):
+		$GrabArea.position.x = abs($GrabArea.position.x) * facing_direction
 
 # --- SYSTEME DE COMBAT ---
 
@@ -96,3 +132,44 @@ func _on_hitbox_area_entered(area):
 		direction.y -= 0.5 
 		
 		ennemi.take_damage(current_attack_damage, current_attack_knockback, direction)
+
+func start_grab():
+	is_attacking = true # On considère le grab comme une action d'attaque
+	is_grabbing = true
+	$AnimationPlayer.play("grab_attempt") # Lance l'animation de saisie
+
+# Connecte le signal area_entered de ton GrabArea à cette fonction
+func _on_grab_area_area_entered(area):
+	if is_grabbing and area.name == "Hurtbox":
+		var target = area.get_parent()
+		if target != self and target is Fighter:
+			catch_opponent(target)
+
+func catch_opponent(target):
+	grabbed_opponent = target
+	target.be_grabbed(self) # On dit à l'adversaire qu'il est attrapé
+	$AnimationPlayer.play("grab_success") # Animation où on tient l'ennemi
+
+func be_grabbed(attacker):
+	is_being_grabbed = true
+	velocity = Vector2.ZERO
+	# On peut aussi le repositionner légèrement devant l'attaquant
+	global_position = attacker.global_position + Vector2(40 * attacker.get_facing_direction(), 0)
+
+func release_grab():
+	is_being_grabbed = false
+	is_grabbing = false
+	grabbed_opponent = null
+	
+func execute_throw():
+	if grabbed_opponent:
+		# On définit une direction de projection (ex: vers le haut et l'avant)
+		var throw_dir = Vector2(get_facing_direction(), -1).normalized()
+		
+		# On applique les dégâts et le knockback (utilise la logique Smash de FighterBase)
+		grabbed_opponent.is_being_grabbed = false
+		grabbed_opponent.take_damage(15.0, 700.0, throw_dir)
+		
+		grabbed_opponent = null
+		is_grabbing = false
+		is_attacking = false

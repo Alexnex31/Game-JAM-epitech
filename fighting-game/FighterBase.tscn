@@ -83,12 +83,20 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ah1k6"]
-size = Vector2(14, 14)
+size = Vector2(28, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xa2lc"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wabvh"]
+size = Vector2(45, 38)
+
 [node name="FighterBase" type="CharacterBody2D" unique_id=1814184204]
 script = ExtResource("1_fg743")
+max_hp = null
+speed = null
+jump_velocity = null
+weight = null
+player_id = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1207794945]
 shape = SubResource("CapsuleShape2D_wabvh")
@@ -113,5 +121,13 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=546312405]
 position = Vector2(10, 0)
 shape = SubResource("RectangleShape2D_xa2lc")
+
+[node name="GrabeArea" type="Area2D" parent="." unique_id=906132722]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabeArea" unique_id=536542194]
+position = Vector2(17, -1)
+shape = SubResource("RectangleShape2D_wabvh")
+disabled = true
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
