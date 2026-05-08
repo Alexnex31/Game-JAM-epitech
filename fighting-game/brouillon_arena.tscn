@@ -9,6 +9,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f8uun"]
 size = Vector2(1960.75, 499.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lyn1t"]
+size = Vector2(489, 1985.5)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_paolq"]
 size = Vector2(739, 78)
 
@@ -18,8 +21,20 @@ script = ExtResource("1_paolq")
 [node name="blast_zone" type="Area2D" parent="." unique_id=1245320699]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="blast_zone" unique_id=2126549232]
-position = Vector2(477, 664)
+position = Vector2(217, 955)
 shape = SubResource("RectangleShape2D_f8uun")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="blast_zone/CollisionShape2D" unique_id=2115490432]
+position = Vector2(2, -1937)
+shape = SubResource("RectangleShape2D_f8uun")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="blast_zone" unique_id=939924213]
+position = Vector2(1447, 54.25)
+shape = SubResource("RectangleShape2D_lyn1t")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="blast_zone/CollisionShape2D2" unique_id=1655174664]
+position = Vector2(-2453, -5.25)
+shape = SubResource("RectangleShape2D_lyn1t")
 
 [node name="arena" type="StaticBody2D" parent="." unique_id=1560683133]
 collision_mask = 0
