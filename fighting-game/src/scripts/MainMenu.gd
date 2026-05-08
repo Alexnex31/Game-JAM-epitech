@@ -5,7 +5,7 @@ func _ready():
 
 func _on_jouer_pressed():
 	# Lance la scène de l'arène
-	get_tree().change_scene_to_file("res://brouillon_arena.tscn")
+	get_tree().change_scene_to_file("res://CharacterSelect.tscn")
 
 func _on_parametres_pressed():
 	# Lance la scène des paramètres

@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://c0cu2pi8sj3nb" path="res://scripts/area.gd" id="1_paolq"]
 [ext_resource type="Texture2D" uid="uid://bn5y7dwt1qqau" path="res://icon.svg" id="3_da5vq"]
-[ext_resource type="PackedScene" uid="uid://btjqgmgnfkknx" path="res://President.tscn" id="3_mwyi6"]
-[ext_resource type="PackedScene" path="res://src/scenes/PauseMenu.tscn" id="4_pause"]
+[ext_resource type="PackedScene" uid="uid://kbb40ye14i8" path="res://src/scenes/PauseMenu.tscn" id="4_pause"]
+[ext_resource type="Script" uid="uid://dlpqodrx7aqm4" path="res://camera.gd" id="5_lyn1t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f8uun"]
 size = Vector2(15533.451, 276.375)
@@ -47,16 +47,24 @@ position = Vector2(535, 428)
 scale = Vector2(5.6953125, 0.5859375)
 texture = ExtResource("3_da5vq")
 
-[node name="President_FighterBase" parent="." unique_id=1814184204 instance=ExtResource("3_mwyi6")]
-position = Vector2(362, 249)
-
-[node name="President_FighterBase2" parent="." unique_id=1365827944 instance=ExtResource("3_mwyi6")]
-position = Vector2(678, 253)
-player_id = 2
-
 [node name="UI" type="CanvasLayer" parent="." unique_id=2073642519]
+visible = false
 
 [node name="PauseMenu" parent="UI" unique_id=1071146558 instance=ExtResource("4_pause")]
+
+[node name="PauseMenu2" parent="UI" unique_id=1623452027 instance=ExtResource("4_pause")]
 visible = false
+
+[node name="UI2" type="CanvasLayer" parent="." unique_id=962535780]
+
+[node name="DynamicCamera" type="Camera2D" parent="." unique_id=1657161632]
+position_smoothing_enabled = true
+script = ExtResource("5_lyn1t")
+
+[node name="SpawnP1" type="Marker2D" parent="." unique_id=722686679]
+position = Vector2(322, 294)
+
+[node name="SpawnP2" type="Marker2D" parent="." unique_id=934605342]
+position = Vector2(745, 292)
 
 [connection signal="body_entered" from="blast_zone" to="." method="_on_blast_zone_body_entered"]

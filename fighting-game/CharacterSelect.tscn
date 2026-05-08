@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://dcjopx2shrxgx"]
+
+[ext_resource type="Script" uid="uid://cq3em6nn8kpdg" path="res://character_select.gd" id="1_1hnkh"]
+[ext_resource type="PackedScene" uid="uid://jhlbjbu85xnd" path="res://CecilYA.tscn" id="2_ppjiv"]
+[ext_resource type="PackedScene" uid="uid://btjqgmgnfkknx" path="res://President.tscn" id="3_ejo3v"]
+[ext_resource type="PackedScene" uid="uid://ben8x18wuvevq" path="res://NOE.tscn" id="4_7hob4"]
+[ext_resource type="PackedScene" uid="uid://d2ln0247hkhtu" path="res://Stand.tscn" id="5_bt2m8"]
+
+[node name="Control" type="Control" unique_id=978338391]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1hnkh")
+char1_tank = ExtResource("2_ppjiv")
+char2_standard = ExtResource("3_ejo3v")
+char3_speed = ExtResource("4_7hob4")
+char4_stand = ExtResource("5_bt2m8")
+
+[node name="Cecilia" type="Button" parent="." unique_id=1215874054]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.18300001
+anchor_top = 0.28100002
+anchor_right = 0.25300002
+anchor_bottom = 0.32900003
+offset_left = 0.18399048
+offset_top = -0.088012695
+offset_right = -72.456024
+offset_bottom = -23.192017
+text = "Cecil YAA"
+
+[node name="President" type="Button" parent="." unique_id=1111097287]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.048
+anchor_top = 0.27600002
+anchor_right = 0.13800001
+anchor_bottom = 0.324
+offset_left = -0.29600143
+offset_top = 0.15197754
+offset_right = 0.023986816
+offset_bottom = 0.04800415
+text = "President :)s"
+
+[node name="Noé" type="Button" parent="." unique_id=1384444316]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.172
+anchor_top = 0.15
+anchor_right = 0.28100002
+anchor_bottom = 0.19800001
+offset_left = -0.14401245
+offset_top = -0.20000458
+offset_right = 0.28796387
+offset_bottom = -0.3040161
+text = "Noé (trop sexy)"
+
+[node name="Marc" type="Button" parent="." unique_id=460782249]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.048
+anchor_top = 0.14500001
+anchor_right = 0.089
+anchor_bottom = 0.193
+offset_left = -0.29600143
+offset_top = 0.039993286
+offset_right = -0.5279999
+offset_bottom = -0.06400299
+text = "Marc"
+
+[connection signal="pressed" from="Cecilia" to="." method="_on_button_tank_pressed"]
+[connection signal="pressed" from="President" to="." method="_on_button_standard_pressed"]
+[connection signal="pressed" from="Noé" to="." method="_on_button_speed_pressed"]
+[connection signal="pressed" from="Marc" to="." method="_on_button_stand_pressed"]
