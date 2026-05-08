@@ -51,8 +51,12 @@ func check_attack_inputs():
 		else:
 			play_move("spec_air")
 
+	# --- ULTIME ---
 	elif Input.is_action_just_pressed(get_input_string("attack_ultimate")):
-		start_ultimate()
+		if current_ultimate >= max_ultimate: # On vérifie si la jauge est pleine
+			start_ultimate()
+		else:
+			print("Ultime pas encore prêt ! Charge : ", current_ultimate)
 
 func play_move(anim_name: String):
 	# On vérifie que l'animation existe bien dans la liste !

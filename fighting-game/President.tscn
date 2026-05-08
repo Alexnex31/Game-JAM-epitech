@@ -861,10 +861,14 @@ _data = {
 [node name="President_FighterBase" unique_id=1814184204 instance=ExtResource("1_qngl1")]
 script = ExtResource("2_6lstj")
 strength_multiplier = 1.0
-is_mini = false
-max_hp = 100.0
+is_mini = null
+max_hp = null
+speed = null
+jump_velocity = null
 weight = 0.0
-knockback_scaling = 0.4
+player_id = null
+knockback_scaling = null
+max_ultimate = null
 
 [node name="Sprite2D" parent="." index="1" unique_id=486936260]
 flip_h = true

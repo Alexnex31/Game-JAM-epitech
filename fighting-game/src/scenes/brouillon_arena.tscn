@@ -68,7 +68,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="VictoryLayer" type="ColorRect" parent="UI/HUD"]
+[node name="VictoryLayer" type="ColorRect" parent="UI/HUD" unique_id=260242225]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -78,7 +78,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.588235)
 
-[node name="VictoryLabel" type="Label" parent="UI/HUD/VictoryLayer"]
+[node name="VictoryLabel" type="Label" parent="UI/HUD/VictoryLayer" unique_id=904282295]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -135,18 +135,18 @@ text = "VS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RoundCounter" type="VBoxContainer" parent="UI/HUD/HBoxContainer"]
+[node name="RoundCounter" type="VBoxContainer" parent="UI/HUD/HBoxContainer" unique_id=185463840]
 layout_mode = 2
 alignment = 1
 
-[node name="ScoreLabel" type="Label" parent="UI/HUD/HBoxContainer/RoundCounter"]
+[node name="ScoreLabel" type="Label" parent="UI/HUD/HBoxContainer/RoundCounter" unique_id=1412483743]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0, 1)
 theme_override_font_sizes/font_size = 32
 text = "0 - 0"
 horizontal_alignment = 1
 
-[node name="RoundLabel" type="Label" parent="UI/HUD/HBoxContainer/RoundCounter"]
+[node name="RoundLabel" type="Label" parent="UI/HUD/HBoxContainer/RoundCounter" unique_id=888764849]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "MANCHES"

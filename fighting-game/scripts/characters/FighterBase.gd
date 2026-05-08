@@ -11,6 +11,10 @@ class_name Fighter extends CharacterBody2D
 # Multiplicateur global pour régler la puissance de tous les coups du jeu d'un coup
 @export var knockback_scaling: float = 0.4
 
+# --- JAUGE D'ULTIME ---
+@export var max_ultimate: float = 100.0
+var current_ultimate: float = 0.0
+
 var is_attacking: bool = false
 var current_hp: float
 
@@ -139,6 +143,8 @@ func take_damage(damage: float, base_knockback: float, knockback_direction: Vect
 	if safe_direction.length() == 0:
 		safe_direction = Vector2(-facing_direction, -1)
 
+	# On gagne de l'ultime quand on prend des coups (ex: 50% des dégâts reçus)
+	current_ultimate = clamp(current_ultimate + (damage * 0.5), 0.0, max_ultimate)
 	# 5. Application de l'impulsion
 	velocity = safe_direction.normalized() * final_knockback
 	knockback_velocity = velocity 
@@ -165,6 +171,8 @@ func _on_hitbox_area_entered(area):
 			# Angle vers le haut façon Smash
 			direction.y -= 0.6 
 			
+			# On gagne de l'ultime quand on tape (ex: 100% des dégâts infligés)
+			current_ultimate = clamp(current_ultimate + current_attack_damage, 0.0, max_ultimate)
 			ennemi.take_damage(current_attack_damage, current_attack_knockback, direction)
 
 func end_attack():
