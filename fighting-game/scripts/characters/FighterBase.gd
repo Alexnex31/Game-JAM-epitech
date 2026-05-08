@@ -153,6 +153,10 @@ func take_damage(damage: float, base_knockback: float, knockback_direction: Vect
 	is_attacking = false 
 	is_grabbing = false
 
+func get_kb_ratio() -> float:
+	var safe_max_hp = max(max_hp, 1.0)
+	return (safe_max_hp - current_hp) / safe_max_hp
+
 func _on_hitbox_area_entered(area):
 	if not is_attacking:
 		return 
