@@ -26,8 +26,12 @@ func _process(delta):
 		global_position = global_position.lerp(target_pos, 5 * delta)
 
 func play_move(anim_name: String):
-	is_attacking = true
-	$AnimationPlayer.play(anim_name)
+	# On vérifie que l'animation existe bien dans la liste !
+	if $AnimationPlayer.has_animation(anim_name):
+		is_attacking = true
+		$AnimationPlayer.play(anim_name)
+	else:
+		print("ATTENTION: L'animation '", anim_name, "' manque !")
 
 # A appeler à la fin de chaque animation du Stand via la piste Call Method !
 func end_attack():
