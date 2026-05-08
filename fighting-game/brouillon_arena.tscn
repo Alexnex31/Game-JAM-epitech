@@ -1,9 +1,8 @@
-[gd_scene format=3 uid="uid://bkwmw04xhsw01"]
+[gd_scene format=3 uid="uid://bvled455rq34k"]
 
 [ext_resource type="Script" uid="uid://c0cu2pi8sj3nb" path="res://scripts/area.gd" id="1_paolq"]
 [ext_resource type="Texture2D" uid="uid://bn5y7dwt1qqau" path="res://icon.svg" id="3_da5vq"]
 [ext_resource type="PackedScene" uid="uid://kbb40ye14i8" path="res://src/scenes/PauseMenu.tscn" id="4_pause"]
-[ext_resource type="Script" uid="uid://dlpqodrx7aqm4" path="res://scripts/camera.gd" id="5_lyn1t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f8uun"]
 size = Vector2(15533.451, 1089.1875)
@@ -57,78 +56,6 @@ texture = ExtResource("3_da5vq")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=2073642519]
 
-[node name="HUD" type="Control" parent="UI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 100.0
-grow_horizontal = 2
-theme_override_constants/separation = 50
-
-[node name="P1_Stats" type="VBoxContainer" parent="UI/HUD/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 1
-
-[node name="P1_Name" type="Label" parent="UI/HUD/HBoxContainer/P1_Stats"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.18, 0.6, 1, 1)
-theme_override_font_sizes/font_size = 24
-text = "JOUEUR 1"
-horizontal_alignment = 1
-
-[node name="P1_PV" type="Label" parent="UI/HUD/HBoxContainer/P1_Stats"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "PV: 100"
-horizontal_alignment = 1
-
-[node name="P1_KB" type="Label" parent="UI/HUD/HBoxContainer/P1_Stats"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "KB: 1.0"
-horizontal_alignment = 1
-
-[node name="VS" type="Label" parent="UI/HUD/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "VS"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="P2_Stats" type="VBoxContainer" parent="UI/HUD/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 1
-
-[node name="P2_Name" type="Label" parent="UI/HUD/HBoxContainer/P2_Stats"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
-theme_override_font_sizes/font_size = 24
-text = "JOUEUR 2"
-horizontal_alignment = 1
-
-[node name="P2_PV" type="Label" parent="UI/HUD/HBoxContainer/P2_Stats"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "PV: 100"
-horizontal_alignment = 1
-
-[node name="P2_KB" type="Label" parent="UI/HUD/HBoxContainer/P2_Stats"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "KB: 1.0"
-horizontal_alignment = 1
-
 [node name="PauseMenu" parent="UI" unique_id=1071146558 instance=ExtResource("4_pause")]
 
 [node name="PauseMenu2" parent="UI" unique_id=1623452027 instance=ExtResource("4_pause")]
@@ -138,7 +65,6 @@ visible = false
 
 [node name="DynamicCamera" type="Camera2D" parent="." unique_id=1657161632]
 position_smoothing_enabled = true
-script = ExtResource("5_lyn1t")
 
 [node name="SpawnP1" type="Marker2D" parent="." unique_id=722686679]
 position = Vector2(-227, 7)
