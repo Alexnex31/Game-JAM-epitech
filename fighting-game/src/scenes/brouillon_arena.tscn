@@ -24,6 +24,8 @@ size = Vector2(739, 78)
 script = ExtResource("1_paolq")
 
 [node name="blast_zone" type="Area2D" parent="." unique_id=1245320699]
+collision_layer = 0
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="blast_zone" unique_id=2126549232]
 position = Vector2(0, 1306.4063)
@@ -57,7 +59,7 @@ texture = ExtResource("3_da5vq")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=2073642519]
 
-[node name="HUD" type="Control" parent="UI"]
+[node name="HUD" type="Control" parent="UI" unique_id=81778632]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -66,7 +68,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD" unique_id=2061062979]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -74,56 +76,56 @@ offset_bottom = 100.0
 grow_horizontal = 2
 theme_override_constants/separation = 50
 
-[node name="P1_Stats" type="VBoxContainer" parent="UI/HUD/HBoxContainer"]
+[node name="P1_Stats" type="VBoxContainer" parent="UI/HUD/HBoxContainer" unique_id=1304527378]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="P1_Name" type="Label" parent="UI/HUD/HBoxContainer/P1_Stats"]
+[node name="P1_Name" type="Label" parent="UI/HUD/HBoxContainer/P1_Stats" unique_id=846115187]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.18, 0.6, 1, 1)
 theme_override_font_sizes/font_size = 24
 text = "JOUEUR 1"
 horizontal_alignment = 1
 
-[node name="P1_PV" type="Label" parent="UI/HUD/HBoxContainer/P1_Stats"]
+[node name="P1_PV" type="Label" parent="UI/HUD/HBoxContainer/P1_Stats" unique_id=326862734]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "PV: 100"
 horizontal_alignment = 1
 
-[node name="P1_KB" type="Label" parent="UI/HUD/HBoxContainer/P1_Stats"]
+[node name="P1_KB" type="Label" parent="UI/HUD/HBoxContainer/P1_Stats" unique_id=1802242893]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "KB: 1.0"
 horizontal_alignment = 1
 
-[node name="VS" type="Label" parent="UI/HUD/HBoxContainer"]
+[node name="VS" type="Label" parent="UI/HUD/HBoxContainer" unique_id=400851142]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "VS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="P2_Stats" type="VBoxContainer" parent="UI/HUD/HBoxContainer"]
+[node name="P2_Stats" type="VBoxContainer" parent="UI/HUD/HBoxContainer" unique_id=1239307618]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="P2_Name" type="Label" parent="UI/HUD/HBoxContainer/P2_Stats"]
+[node name="P2_Name" type="Label" parent="UI/HUD/HBoxContainer/P2_Stats" unique_id=1673837119]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
 theme_override_font_sizes/font_size = 24
 text = "JOUEUR 2"
 horizontal_alignment = 1
 
-[node name="P2_PV" type="Label" parent="UI/HUD/HBoxContainer/P2_Stats"]
+[node name="P2_PV" type="Label" parent="UI/HUD/HBoxContainer/P2_Stats" unique_id=391937923]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "PV: 100"
 horizontal_alignment = 1
 
-[node name="P2_KB" type="Label" parent="UI/HUD/HBoxContainer/P2_Stats"]
+[node name="P2_KB" type="Label" parent="UI/HUD/HBoxContainer/P2_Stats" unique_id=1317382735]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "KB: 1.0"

@@ -86,13 +86,13 @@ _data = {
 size = Vector2(63, 62)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xa2lc"]
-size = Vector2(79, 81)
+size = Vector2(126, 81)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wabvh"]
 size = Vector2(72.5, 53)
 
 [node name="FighterBase" type="CharacterBody2D" unique_id=1814184204]
-collision_layer = 0
+collision_layer = 8
 script = ExtResource("1_fg743")
 max_hp = 200.0
 knockback_scaling = 1.0
@@ -121,7 +121,7 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=546312405]
-position = Vector2(39.5, -0.5)
+position = Vector2(31, -0.5)
 shape = SubResource("RectangleShape2D_xa2lc")
 
 [node name="GrabArea" type="Area2D" parent="." unique_id=906132722]

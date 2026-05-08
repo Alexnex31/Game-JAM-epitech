@@ -56,5 +56,7 @@ func _process(_delta: float) -> void:
 
 func _on_blast_zone_body_entered(body):
 	if body is Fighter:
-		print(body.name + " est tombé dans le vide !")
-		body.queue_free() # Détruit le joueur (ou gère le Game Over)
+		print(body.name + " est éliminé !")
+		# Optionnel pour une Jam : tu peux recharger la scène pour rejouer direct
+		# get_tree().reload_current_scene() 
+		body.queue_free() # Détruit le personnage
