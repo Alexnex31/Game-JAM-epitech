@@ -47,6 +47,12 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "JOUER"
 
+[node name="Parametres" type="Button" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "PARAMETRES"
+
 [node name="Credit" type="Button" parent="CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
@@ -60,5 +66,6 @@ theme_override_font_sizes/font_size = 32
 text = "QUITTER"
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Jouer" to="." method="_on_jouer_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Parametres" to="." method="_on_parametres_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Credit" to="." method="_on_credit_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Quitter" to="." method="_on_quitter_pressed"]

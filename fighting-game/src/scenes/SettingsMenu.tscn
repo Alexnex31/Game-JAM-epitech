@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://d1e2f3g4h5i6j"]
+
+[ext_resource type="Script" uid="uid://b7v8w9x0y1z2a" path="res://src/scripts/SettingsMenu.gd" id="1_script"]
+
+[node name="SettingsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12, 0.12, 0.14, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "PARAMETRES"
+horizontal_alignment = 1
+
+[node name="Resolution" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/Resolution"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Résolution"
+
+[node name="OptionButton" type="OptionButton" parent="CenterContainer/VBoxContainer/Resolution"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Volume" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/Volume"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Volume"
+
+[node name="HSlider" type="HSlider" parent="CenterContainer/VBoxContainer/Volume"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 0.5
+
+[node name="Rebind" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "REBIND MANETTE"
+
+[node name="Retour" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "RETOUR"
+
+[connection signal="item_selected" from="CenterContainer/VBoxContainer/Resolution/OptionButton" to="." method="_on_resolution_option_item_selected"]
+[connection signal="value_changed" from="CenterContainer/VBoxContainer/Volume/HSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Rebind" to="." method="_on_rebind_controller_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Retour" to="." method="_on_retour_pressed"]
