@@ -11,6 +11,13 @@ var current_state = GameState.MENU
 
 func _ready():
 	print("Game Started")
+	$MultiTargetCam.add_target($President_FighterBase)
+	$MultiTargetCam.add_target($President_FighterBase2)
+	
+	# Set camera limits
+	#var r = get_used_rect()
+	#$MultiTargetCam.limit_left = r.position.x
+	#$MultiTargetCam.limit_right = r.end.x
 	change_state(GameState.MENU)
 
 func change_state(new_state: GameState):
