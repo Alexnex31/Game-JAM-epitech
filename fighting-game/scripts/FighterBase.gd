@@ -15,6 +15,8 @@ var is_grabbing: bool = false
 var is_being_grabbed: bool = false
 var grabbed_opponent: Fighter = null # Référence vers celui qu'on a attrapé
 
+var double_jump_left: int = 1
+
 # 1 = regarde à droite, -1 = regarde à gauche
 var facing_direction: int = 1 
 
@@ -33,11 +35,19 @@ func _physics_process(delta):
 	# 1. Appliquer la gravité
 	if not is_on_floor():
 		velocity.y += gravity * delta
+	else:
+		double_jump_left = 1
 
 	# 2. Gestion du saut
 	var jump_action = get_input_string("jump")
 	if Input.is_action_just_pressed(jump_action) and is_on_floor():
 		velocity.y = jump_velocity
+	if Input.is_action_just_pressed(jump_action) and not(is_on_floor()) and double_jump_left > 0:
+		if (velocity.y > 0): # Si on tombe
+			velocity.y = jump_velocity
+		else:
+			velocity.y += jump_velocity * 0.25
+		double_jump_left -= 1
 	if is_attacking:
 		# On ralentit le perso s'il était en train de courir quand il a frappé
 		velocity.x = move_toward(velocity.x, 0, speed * delta)
