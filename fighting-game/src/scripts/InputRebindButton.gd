@@ -6,6 +6,7 @@ var is_rebinding = false
 func _ready():
 	set_process_unhandled_input(false)
 	update_text()
+	pressed.connect(_on_pressed)
 
 func update_text():
 	var events = InputMap.action_get_events(action_name)
@@ -24,12 +25,16 @@ func _on_pressed():
 
 func _unhandled_input(event):
 	if is_rebinding:
-		# On n'accepte que les pressions de boutons ou les axes poussés à fond
+		# On n'accepte que les pressions de boutons, axes poussés à fond ou touches clavier
 		var is_valid_event = false
 		if event is InputEventJoypadButton and event.pressed:
 			is_valid_event = true
 		elif event is InputEventJoypadMotion and abs(event.axis_value) > 0.5:
 			is_valid_event = true
+		elif event is InputEventKey and event.pressed:
+			# On évite de binder la touche pause ici si on veut l'utiliser pour annuler
+			if not event.is_action("pause"):
+				is_valid_event = true
 			
 		if is_valid_event:
 			# Supprimer l'ancien bind

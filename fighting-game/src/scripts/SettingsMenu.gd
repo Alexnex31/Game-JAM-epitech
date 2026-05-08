@@ -12,7 +12,7 @@ func _ready():
 	# Charger les valeurs actuelles
 	volume_slider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")))
 	
-	# Donner le focus pour la manette
+# Donner le focus pour la manette
 	resolution_option.grab_focus()
 
 func _on_resolution_option_item_selected(index):
