@@ -36,7 +36,9 @@ func check_attack_inputs():
 			else: play_move("neutral")
 		else:
 			if up: play_move("air_headbutt")
-			elif down: play_move("air_kick")
+			elif down: 
+				play_move("air_kick")
+				velocity.y = 0
 			elif side: play_move("air_dash_attack")
 			else: play_move("air_spin")
 
