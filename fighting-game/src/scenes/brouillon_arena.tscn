@@ -68,6 +68,34 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="VictoryLayer" type="ColorRect" parent="UI/HUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.588235)
+
+[node name="VictoryLabel" type="Label" parent="UI/HUD/VictoryLayer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_right = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 60
+text = "JOUEUR 1 GAGNE !"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD" unique_id=2061062979]
 layout_mode = 1
 anchors_preset = 10

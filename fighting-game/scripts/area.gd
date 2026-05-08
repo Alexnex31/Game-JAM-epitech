@@ -2,11 +2,15 @@ extends Node2D
 
 var p1: Fighter
 var p2: Fighter
+var game_over: bool = false
 
 @onready var p1_pv_label = $UI/HUD/HBoxContainer/P1_Stats/P1_PV
 @onready var p1_kb_label = $UI/HUD/HBoxContainer/P1_Stats/P1_KB
 @onready var p2_pv_label = $UI/HUD/HBoxContainer/P2_Stats/P2_PV
 @onready var p2_kb_label = $UI/HUD/HBoxContainer/P2_Stats/P2_KB
+
+@onready var victory_layer = $UI/HUD/VictoryLayer
+@onready var victory_label = $UI/HUD/VictoryLayer/VictoryLabel
 
 func _ready():
 	# Sécurité au cas où on lance l'arène directement pour tester
@@ -46,17 +50,46 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	if game_over:
+		return
+
 	if is_instance_valid(p1):
 		p1_pv_label.text = "PV: " + str(round(p1.current_hp))
 		p1_kb_label.text = "KB: " + str(snapped(p1.knockback_scaling, 0.1))
+		if p1.current_hp <= 0:
+			show_victory(2) # P2 gagne
 	
 	if is_instance_valid(p2):
 		p2_pv_label.text = "PV: " + str(round(p2.current_hp))
 		p2_kb_label.text = "KB: " + str(snapped(p2.knockback_scaling, 0.1))
+		if p2.current_hp <= 0:
+			show_victory(1) # P1 gagne
+
+func show_victory(winner_id: int):
+	if game_over:
+		return
+	
+	game_over = true
+	victory_layer.visible = true
+	victory_label.text = "JOUEUR " + str(winner_id) + " GAGNE !"
+	
+	# Optionnel: on peut figer les joueurs
+	if is_instance_valid(p1): p1.set_physics_process(false)
+	if is_instance_valid(p2): p2.set_physics_process(false)
+	
+	# Retour au menu après 3 secondes
+	await get_tree().create_timer(3.0).timeout
+	get_tree().change_scene_to_file("res://src/scenes/MainMenu.tscn")
 
 func _on_blast_zone_body_entered(body):
+	if game_over:
+		return
+		
 	if body is Fighter:
-		print(body.name + " est éliminé !")
-		# Optionnel pour une Jam : tu peux recharger la scène pour rejouer direct
-		# get_tree().reload_current_scene() 
-		body.queue_free() # Détruit le personnage
+		print(body.name + " est tombé dans le vide !")
+		if body == p1:
+			show_victory(2)
+		elif body == p2:
+			show_victory(1)
+		
+		body.queue_free()
