@@ -110,37 +110,40 @@ func update_facing():
 # --- SYSTEME DE COMBAT ---
 
 func take_damage(damage: float, base_knockback: float, knockback_direction: Vector2):
+	# --- SÉCURITÉ ANTI MULTI-HIT ---
 	if invuln_timer > 0:
 		return 
-		
 	invuln_timer = 0.2 
-
-	# --- NOUVEAU FIX : Relâcher la victime si on est interrompu ---
-	if is_grabbing and grabbed_opponent != null:
-		grabbed_opponent.is_being_grabbed = false
-		grabbed_opponent = null
-	# ---------------------------------------------------------------
+	# -------------------------------
 
 	current_hp -= damage
 	if current_hp <= 0: current_hp = 0
 
+	# 1. Calcul du ratio de vie perdue (0.0 à 1.0)
 	var safe_max_hp = max(max_hp, 1.0) 
 	var missing_health_ratio = (safe_max_hp - current_hp) / safe_max_hp 
-	var knockback_multiplier = 1.0 + (missing_health_ratio * 1.0) 
+
+	# 2. LE SECRET DU KNOCKBACK : La courbe exponentielle
+	# On élève le ratio au carré pour que le knockback n'augmente pas trop vite au début
+	# mais devienne massif à la fin.
+	# Formule : 1.0 + (ratio * ratio * multiplicateur_de_puissance)
+	var power_factor = 5.0 # Augmente ce chiffre pour que les persos volent encore plus loin à bas PV
+	var knockback_multiplier = 1.0 + (missing_health_ratio * missing_health_ratio * power_factor)
 	
-	# SÉCURITÉ 2 : Empêcher la division par zéro si le weight est à 0
+	# 3. Calcul final avec le poids et le scaling global
 	var safe_weight = max(weight, 0.1) 
 	var final_knockback = (base_knockback * knockback_multiplier * knockback_scaling) / safe_weight
 	
-	# SÉCURITÉ 3 : Si la direction reçue est (0,0), on force une direction par défaut
+	# 4. Sécurité de direction
 	var safe_direction = knockback_direction
 	if safe_direction.length() == 0:
 		safe_direction = Vector2(-facing_direction, -1)
 
-	# L'IMPULSION
+	# 5. Application de l'impulsion
 	velocity = safe_direction.normalized() * final_knockback
 	knockback_velocity = velocity 
 	
+	# Interruption des actions
 	is_attacking = false 
 	is_grabbing = false
 
