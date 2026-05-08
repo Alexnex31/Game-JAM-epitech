@@ -4,8 +4,8 @@ func _ready():
 	$CenterContainer/VBoxContainer/Jouer.grab_focus()
 
 func _on_jouer_pressed():
-	# Lance la scène de l'arène
-	get_tree().change_scene_to_file("res://CharacterSelect.tscn")
+	# Lance la scène de sélection des personnages
+	get_tree().change_scene_to_file("res://src/scenes/CharacterSelect.tscn")
 
 func _on_parametres_pressed():
 	# Lance la scène des paramètres

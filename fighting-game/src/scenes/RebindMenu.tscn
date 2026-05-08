@@ -40,7 +40,7 @@ theme_override_constants/margin_top = 40
 [node name="Title" type="Label" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "REBIND MANETTE"
+text = "REBIND TOUCHES"
 horizontal_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
@@ -57,6 +57,62 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.18, 0.6, 1, 1)
 theme_override_font_sizes/font_size = 24
 text = "Joueur 1"
+
+[node name="MoveLeft1" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ActionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/ActionsList/MoveLeft1"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Gauche"
+
+[node name="Button" type="Button" parent="VBoxContainer/ScrollContainer/ActionsList/MoveLeft1"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_btn_script")
+action_name = "move_left_1"
+
+[node name="MoveRight1" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ActionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/ActionsList/MoveRight1"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Droite"
+
+[node name="Button" type="Button" parent="VBoxContainer/ScrollContainer/ActionsList/MoveRight1"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_btn_script")
+action_name = "move_right_1"
+
+[node name="MoveUp1" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ActionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/ActionsList/MoveUp1"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Haut"
+
+[node name="Button" type="Button" parent="VBoxContainer/ScrollContainer/ActionsList/MoveUp1"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_btn_script")
+action_name = "move_up_1"
+
+[node name="MoveDown1" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ActionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/ActionsList/MoveDown1"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Bas"
+
+[node name="Button" type="Button" parent="VBoxContainer/ScrollContainer/ActionsList/MoveDown1"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_btn_script")
+action_name = "move_down_1"
 
 [node name="Jump1" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ActionsList"]
 layout_mode = 2
@@ -136,6 +192,62 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
 theme_override_font_sizes/font_size = 24
 text = "Joueur 2"
+
+[node name="MoveLeft2" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ActionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/ActionsList/MoveLeft2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Gauche"
+
+[node name="Button" type="Button" parent="VBoxContainer/ScrollContainer/ActionsList/MoveLeft2"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_btn_script")
+action_name = "move_left_2"
+
+[node name="MoveRight2" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ActionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/ActionsList/MoveRight2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Droite"
+
+[node name="Button" type="Button" parent="VBoxContainer/ScrollContainer/ActionsList/MoveRight2"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_btn_script")
+action_name = "move_right_2"
+
+[node name="MoveUp2" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ActionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/ActionsList/MoveUp2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Haut"
+
+[node name="Button" type="Button" parent="VBoxContainer/ScrollContainer/ActionsList/MoveUp2"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_btn_script")
+action_name = "move_up_2"
+
+[node name="MoveDown2" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ActionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/ActionsList/MoveDown2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Bas"
+
+[node name="Button" type="Button" parent="VBoxContainer/ScrollContainer/ActionsList/MoveDown2"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_btn_script")
+action_name = "move_down_2"
 
 [node name="Jump2" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ActionsList"]
 layout_mode = 2

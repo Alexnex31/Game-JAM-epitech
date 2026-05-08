@@ -12,7 +12,7 @@ func _ready():
 	# Charger les valeurs actuelles
 	volume_slider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")))
 	
-	# Donner le focus pour la manette
+zszdzsqd	# Donner le focus pour la manette
 	resolution_option.grab_focus()
 
 func _on_resolution_option_item_selected(index):
@@ -32,8 +32,8 @@ func center_window():
 	var screen_id = DisplayServer.window_get_current_screen()
 	var screen_rect = DisplayServer.screen_get_usable_rect(screen_id)
 	var window_size = DisplayServer.window_get_size()
-	DisplayServer.window_set_position(screen_rect.position + (screen_rect.size - window_size) / 2)
-
+q	DisplayServer.window_set_position(screen_rect.position + (screen_rect.size - window_size) / 2)d
+zsd
 func _on_volume_slider_value_changed(value):
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(value))
 
