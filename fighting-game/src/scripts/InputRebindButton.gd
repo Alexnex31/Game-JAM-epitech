@@ -15,44 +15,40 @@ func update_text():
 		text = "Aucune touche"
 
 func _on_pressed():
-	if is_rebinding: return # Sécurité
-	
 	is_rebinding = true
-	# On désactive le focus pour que le bouton ne réagisse plus aux "clicks" UI
-	# mais on le garde visuellement pour savoir où on est
-	focus_mode = FOCUS_NONE 
-	
-	text = "..."
-	await get_tree().create_timer(0.2).timeout
+	text = "..." # On met des points de suspension au début
+	# On attend un tout petit peu pour éviter que l'appui sur le bouton soit capturé
+	await get_tree().create_timer(0.1).timeout
 	text = "Appuyez sur une touche..."
 	set_process_unhandled_input(true)
 
 func _unhandled_input(event):
 	if is_rebinding:
-		# On ignore les events "echo" (quand on reste appuyé)
-		if event is InputEventJoypadButton and event.is_echo(): return
-
+		# On n'accepte que les pressions de boutons ou les axes poussés à fond
 		var is_valid_event = false
 		if event is InputEventJoypadButton and event.pressed:
 			is_valid_event = true
-		elif event is InputEventJoypadMotion and abs(event.axis_value) > 0.6:
+		elif event is InputEventJoypadMotion and abs(event.axis_value) > 0.5:
 			is_valid_event = true
 			
 		if is_valid_event:
+			# Supprimer l'ancien bind
 			InputMap.action_erase_events(action_name)
+			
+			# Ajouter le nouveau bind
 			InputMap.action_add_event(action_name, event)
 			
-			finish_rebinding()
+			is_rebinding = false
+			set_process_unhandled_input(false)
+			update_text()
+			# Empêcher l'event de se propager
 			get_viewport().set_input_as_handled()
+			# On redonne le focus au bouton pour continuer la navigation
+			grab_focus()
 		
 		elif event.is_action_pressed("pause"):
-			finish_rebinding()
+			is_rebinding = false
+			set_process_unhandled_input(false)
+			update_text()
 			get_viewport().set_input_as_handled()
-
-func finish_rebinding():
-	is_rebinding = false
-	set_process_unhandled_input(false)
-	update_text()
-	# On réactive le focus et on le reprend
-	focus_mode = FOCUS_ALL
-	grab_focus()
+			grab_focus()
