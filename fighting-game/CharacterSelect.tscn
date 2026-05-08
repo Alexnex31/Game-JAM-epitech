@@ -43,7 +43,7 @@ offset_left = -0.29600143
 offset_top = 0.15197754
 offset_right = 0.023986816
 offset_bottom = 0.04800415
-text = "President :)s"
+text = "President :)"
 
 [node name="Noé" type="Button" parent="." unique_id=1384444316]
 layout_mode = 1

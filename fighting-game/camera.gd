@@ -1,11 +1,11 @@
 extends Camera2D
 
 # J'ai augmenté les vitesses car on utilise 'delta' maintenant
-@export var move_speed: float = 5.0 
+@export var move_speed: float = 20.0
 @export var zoom_speed: float = 5.0
 # Dans Godot, un zoom < 1 éloigne (dézoome), un zoom > 1 rapproche.
-@export var min_zoom: float = 1.5 # Limite max de dézoom (très éloigné)
-@export var max_zoom: float = 3 # Limite max de zoom (très proche)
+@export var min_zoom: float = 0.2 # Limite max de dézoom (très éloigné)
+@export var max_zoom: float = 0.8 # Limite max de zoom (très proche)
 @export var margin: Vector2 = Vector2(400, 200)
 
 var targets: Array[Node2D] = []
@@ -27,7 +27,8 @@ func _process(delta):
 	# 1. Calcul de la position moyenne (le point entre tous les joueurs)
 	var p = Vector2.ZERO
 	for target in targets:
-		p += target.position
+		if target != null:
+			p += target.position
 	p /= targets.size()
 	
 	# Déplacement fluide
@@ -36,7 +37,8 @@ func _process(delta):
 	# 2. Calcul du rectangle qui englobe tous les joueurs
 	var r = Rect2(position, Vector2.ZERO)
 	for target in targets:
-		r = r.expand(target.position)
+		if target != null:
+			r = r.expand(target.position)
 		
 	r = r.grow_individual(margin.x, margin.y, margin.x, margin.y)
 	
