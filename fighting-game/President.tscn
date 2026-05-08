@@ -867,6 +867,8 @@ speed = 300.0
 jump_velocity = -600.0
 weight = 0.0
 player_id = 1
+gravity_multiplier = 1.0
+knockback_scaling = 0.4
 
 [node name="AnimationPlayer" parent="." index="2" unique_id=1460908990]
 libraries/ = SubResource("AnimationLibrary_o5j1e")

@@ -8,13 +8,13 @@ class_name Fighter extends CharacterBody2D
 @export var player_id: int = 1
 @export var gravity_multiplier: float = 1.0
 
-# NOUVEAU : Un multiplicateur global pour régler la puissance de tous les coups du jeu d'un coup
-@export var knockback_scaling: float = 1.0 
+# Multiplicateur global pour régler la puissance de tous les coups du jeu d'un coup
+@export var knockback_scaling: float = 0.4
 
 var is_attacking: bool = false
 var current_hp: float
 
-# knockback_velocity ne sert maintenant que de "Timer de Hitstun" (pour bloquer la manette)
+# Timer de Hitstun (pour bloquer la manette après un coup)
 var knockback_velocity: Vector2 = Vector2.ZERO 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -26,7 +26,10 @@ var double_jump_left: int = 1
 var facing_direction: int = 1 
 
 var current_attack_damage: float = 10.0
-var current_attack_knockback: float = 500.0
+var current_attack_knockback: float = 100.0
+
+# --- NOUVEAU : Timer d'invincibilité (anti multi-hit) ---
+var invuln_timer: float = 0.0 
 
 func get_facing_direction() -> int:
 	return facing_direction
@@ -38,6 +41,10 @@ func _ready():
 	current_hp = max_hp
 
 func _physics_process(delta):
+	# Diminution du chrono d'invincibilité
+	if invuln_timer > 0:
+		invuln_timer -= delta
+
 	if is_being_grabbed:
 		return
 
@@ -50,8 +57,8 @@ func _physics_process(delta):
 	# 2. Diminution du verrouillage de la manette (Hitstun)
 	if knockback_velocity.length() > 50:
 		knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, 5 * delta)
-		# On ajoute une petite friction aérienne pour freiner le vol
-		velocity.x = move_toward(velocity.x, 0, (speed * 0.5) * delta)
+		# FREIN D'URGENCE : On ralentit violemment le perso sur l'axe X
+		velocity.x = move_toward(velocity.x, 0, 2500 * delta)
 
 	# 3. Contrôles (Seulement si on n'est pas en train de voler à cause d'un coup)
 	if knockback_velocity.length() <= 50: 
@@ -103,36 +110,59 @@ func update_facing():
 # --- SYSTEME DE COMBAT ---
 
 func take_damage(damage: float, base_knockback: float, knockback_direction: Vector2):
+	# --- SÉCURITÉ ANTI MULTI-HIT ---
+	if invuln_timer > 0:
+		return 
+		
+	invuln_timer = 0.2 
+	# -------------------------------
+
 	current_hp -= damage
 	if current_hp <= 0: current_hp = 0
 
-	var missing_health_ratio = (max_hp - current_hp) / max_hp 
-	# J'ai réduit le multiplicateur max de Smash (de 3.0 à 2.0 max) pour moins de chaos
+	# SÉCURITÉ 1 : Empêcher la division par zéro si max_hp est à 0
+	var safe_max_hp = max(max_hp, 1.0) 
+	var missing_health_ratio = (safe_max_hp - current_hp) / safe_max_hp 
 	var knockback_multiplier = 1.0 + (missing_health_ratio * 1.0) 
 	
-	# On applique la stat de poids et notre nouveau scaling global
-	var final_knockback = (base_knockback * knockback_multiplier * knockback_scaling) / weight
+	# SÉCURITÉ 2 : Empêcher la division par zéro si le weight est à 0
+	var safe_weight = max(weight, 0.1) 
+	var final_knockback = (base_knockback * knockback_multiplier * knockback_scaling) / safe_weight
 	
-	# L'IMPULSION : On écrase la vélocité actuelle par la force du coup
-	velocity = knockback_direction.normalized() * final_knockback
-	
-	# On enregistre cette force juste pour bloquer la manette pendant le vol
+	# SÉCURITÉ 3 : Si la direction reçue est (0,0), on force une direction par défaut
+	var safe_direction = knockback_direction
+	if safe_direction.length() == 0:
+		safe_direction = Vector2(-facing_direction, -1)
+
+	# L'IMPULSION
+	velocity = safe_direction.normalized() * final_knockback
 	knockback_velocity = velocity 
 	
-	# On annule l'attaque du perso s'il se fait taper
 	is_attacking = false 
 	is_grabbing = false
 
-func end_attack():
-	is_attacking = false
-
 func _on_hitbox_area_entered(area):
+	if not is_attacking:
+		return 
+		
 	if area.name == "Hurtbox" and area.get_parent() != self:
 		var ennemi = area.get_parent()
-		var direction = (ennemi.global_position - global_position).normalized()
-		# Angle vers le haut façon Smash
-		direction.y -= 0.6 
-		ennemi.take_damage(current_attack_damage, current_attack_knockback, direction)
+		
+		if ennemi.invuln_timer <= 0:
+			# SÉCURITÉ 4 : Éviter le Vector2.ZERO si les joueurs sont au même pixel
+			var direction = ennemi.global_position - global_position
+			if direction.length() < 0.1:
+				# S'ils sont superposés, on le pousse devant nous
+				direction = Vector2(facing_direction, 0)
+				
+			direction = direction.normalized()
+			# Angle vers le haut façon Smash
+			direction.y -= 0.6 
+			
+			ennemi.take_damage(current_attack_damage, current_attack_knockback, direction)
+
+func end_attack():
+	is_attacking = false
 
 func start_grab():
 	is_attacking = true
