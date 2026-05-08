@@ -43,10 +43,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed(jump_action) and is_on_floor():
 		velocity.y = jump_velocity
 	if Input.is_action_just_pressed(jump_action) and not(is_on_floor()) and double_jump_left > 0:
-		if (velocity.y > 0): # Si on tombe
-			velocity.y = jump_velocity
-		else:
-			velocity.y += jump_velocity * 0.25
+		velocity.y = jump_velocity
 		double_jump_left -= 1
 	if is_attacking:
 		# On ralentit le perso s'il était en train de courir quand il a frappé
