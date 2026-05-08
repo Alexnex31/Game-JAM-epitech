@@ -1,5 +1,8 @@
 extends Control
 
+func _ready():
+	$CenterContainer/VBoxContainer/Jouer.grab_focus()
+
 func _on_jouer_pressed():
 	# Lance la scène de l'arène
 	get_tree().change_scene_to_file("res://brouillon_arena.tscn")

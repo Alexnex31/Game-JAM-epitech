@@ -9,8 +9,11 @@ func _ready():
 	resolution_option.add_item("1920x1080", 1)
 	resolution_option.add_item("Fullscreen", 2)
 	
-	# Charger les valeurs actuelles (Optionnel: charger depuis une config)
+	# Charger les valeurs actuelles
 	volume_slider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")))
+	
+	# Donner le focus pour la manette
+	resolution_option.grab_focus()
 
 func _on_resolution_option_item_selected(index):
 	match index:
