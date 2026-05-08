@@ -23,6 +23,10 @@ var p2_index = 0
 var p1_ready = false
 var p2_ready = false
 
+enum State {SELECT_MODE, SELECT_CHAR}
+var current_state = State.SELECT_MODE
+var mode_bo5 = false # false = BO3 (2 wins), true = BO5 (3 wins)
+
 var p1_last_move = 0.0
 var p2_last_move = 0.0
 const MOVE_DELAY = 150 # millisecondes
@@ -30,6 +34,7 @@ const MOVE_DELAY = 150 # millisecondes
 func _ready():
 	setup_grid()
 	update_selection_ui()
+	char_grid.visible = false
 
 func setup_grid():
 	# On vide la grille existante
@@ -59,13 +64,19 @@ func setup_grid():
 func _input(event):
 	var current_time = Time.get_ticks_msec()
 	
+	if current_state == State.SELECT_MODE:
+		handle_mode_selection(event)
+		return
+
 	# Gestion Joueur 1
 	if event.is_action_pressed("attack_ultimate_1"): # Bouton B
 		if p1_ready:
 			p1_ready = false
 			update_selection_ui()
 		else:
-			get_tree().change_scene_to_file("res://src/scenes/MainMenu.tscn")
+			current_state = State.SELECT_MODE
+			char_grid.visible = false
+			update_selection_ui()
 			return
 
 	if not p1_ready:
@@ -108,7 +119,35 @@ func _input(event):
 	if p1_ready and p2_ready:
 		start_game()
 
+func handle_mode_selection(event):
+	if event.is_action_pressed("move_left_1") or event.is_action_pressed("move_right_1") or \
+	   event.is_action_pressed("move_left_2") or event.is_action_pressed("move_right_2"):
+		mode_bo5 = !mode_bo5
+		update_selection_ui()
+	
+	if event.is_action_pressed("jump_1") or event.is_action_pressed("jump_2"):
+		GameManager.wins_to_victory = 3 if mode_bo5 else 2
+		current_state = State.SELECT_CHAR
+		char_grid.visible = true
+		update_selection_ui()
+	
+	if event.is_action_pressed("attack_ultimate_1") or event.is_action_pressed("attack_ultimate_2"):
+		get_tree().change_scene_to_file("res://src/scenes/MainMenu.tscn")
+
 func update_selection_ui():
+	if current_state == State.SELECT_MODE:
+		$HBoxContainer/VS.text = "MODE : BO5\n(3 victoires)" if mode_bo5 else "MODE : BO3\n(2 victoires)"
+		$HBoxContainer/VS.modulate = Color.YELLOW
+		p1_preview.text = "<- Choisir"
+		p2_preview.text = "Choisir ->"
+		p1_status.text = "GOUCHE / DROITE"
+		p2_status.text = "SAUT POUR VALIDER"
+		p1_status.modulate = Color.WHITE
+		p2_status.modulate = Color.WHITE
+		return
+
+	$HBoxContainer/VS.text = "VS\n(BO5)" if mode_bo5 else "VS\n(BO3)"
+	$HBoxContainer/VS.modulate = Color.WHITE
 	# On met à jour les bordures/couleurs des cases dans la grille
 	for i in range(char_grid.get_child_count()):
 		var slot = char_grid.get_child(i)
@@ -141,9 +180,6 @@ func get_character_scene(id):
 	return char4_stand
 
 func start_game():
-	# Ici on devrait stocker les choix dans un Singleton ou passer par des arguments
-	# Pour l'instant on lance juste l'arène
 	GameManager.p1_char_scene = get_character_scene(p1_index)
 	GameManager.p2_char_scene = get_character_scene(p2_index)
-	print("Lancement du combat: ", characters[p1_index]["name"], " VS ", characters[p2_index]["name"])
 	get_tree().change_scene_to_file("res://src/scenes/brouillon_arena.tscn")

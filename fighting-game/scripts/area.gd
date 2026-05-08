@@ -119,7 +119,7 @@ func handle_round_end(winner_id: int):
 	p1.set_physics_process(false)
 	p2.set_physics_process(false)
 	
-	if p1_wins >= WINS_TO_VICTORY or p2_wins >= WINS_TO_VICTORY:
+	if p1_wins >= GameManager.wins_to_victory or p2_wins >= GameManager.wins_to_victory:
 		show_final_victory(winner_id)
 	else:
 		# Petite pause avant la prochaine manche
