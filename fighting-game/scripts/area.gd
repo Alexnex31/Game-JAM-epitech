@@ -9,11 +9,12 @@ var p1_wins: int = 0
 var p2_wins: int = 0
 const WINS_TO_VICTORY: int = 2
 
-@onready var p1_pv_label = $UI/HUD/HBoxContainer/P1_Stats/P1_PV
-@onready var p1_kb_label = $UI/HUD/HBoxContainer/P1_Stats/P1_KB
-@onready var p2_pv_label = $UI/HUD/HBoxContainer/P2_Stats/P2_PV
-@onready var p2_kb_label = $UI/HUD/HBoxContainer/P2_Stats/P2_KB
-@onready var score_label = $UI/HUD/HBoxContainer/RoundCounter/ScoreLabel
+@onready var p1_hp_bar = $UI/HUD/HBoxContainer/P1_Stats/P1_HPBar
+@onready var p1_kb_bar = $UI/HUD/HBoxContainer/P1_Stats/P1_KBBar
+@onready var p2_hp_bar = $UI/HUD/HBoxContainer/P2_Stats/P2_HPBar
+@onready var p2_kb_bar = $UI/HUD/HBoxContainer/P2_Stats/P2_KBBar
+@onready var p1_score_label = $UI/HUD/HBoxContainer/P1_Score
+@onready var p2_score_label = $UI/HUD/HBoxContainer/P2_Score
 
 @onready var victory_layer = $UI/HUD/VictoryLayer
 @onready var victory_label = $UI/HUD/VictoryLayer/VictoryLabel
@@ -39,6 +40,12 @@ func _ready():
 	camera.add_target(p1)
 	camera.add_target(p2)
 	
+	# Initialiser les barres
+	p1_hp_bar.max_value = p1.max_hp
+	p2_hp_bar.max_value = p2.max_hp
+	p1_kb_bar.max_value = 1.0
+	p2_kb_bar.max_value = 1.0
+	
 	reset_positions()
 	update_score_ui()
 
@@ -62,21 +69,22 @@ func reset_positions():
 	p2.set_physics_process(true)
 
 func update_score_ui():
-	score_label.text = str(p1_wins) + " - " + str(p2_wins)
+	p1_score_label.text = str(p1_wins)
+	p2_score_label.text = str(p2_wins)
 
 func _process(_delta: float) -> void:
 	if game_over or not round_active:
 		return
 
 	if is_instance_valid(p1):
-		p1_pv_label.text = "PV: " + str(round(p1.current_hp))
-		p1_kb_label.text = "KB: " + str(snapped(p1.knockback_scaling, 0.1))
+		p1_hp_bar.value = p1.current_hp
+		p1_kb_bar.value = p1.get_kb_ratio()
 		if p1.current_hp <= 0:
 			handle_round_end(2)
 	
 	if is_instance_valid(p2):
-		p2_pv_label.text = "PV: " + str(round(p2.current_hp))
-		p2_kb_label.text = "KB: " + str(snapped(p2.knockback_scaling, 0.1))
+		p2_hp_bar.value = p2.current_hp
+		p2_kb_bar.value = p2.get_kb_ratio()
 		if p2.current_hp <= 0:
 			handle_round_end(1)
 
