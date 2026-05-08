@@ -37,15 +37,14 @@ position = Vector2(-2453, -5.25)
 shape = SubResource("RectangleShape2D_lyn1t")
 
 [node name="arena" type="StaticBody2D" parent="." unique_id=1560683133]
+position = Vector2(200, 300)
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="arena" unique_id=301887900]
-position = Vector2(195, 298)
 shape = SubResource("RectangleShape2D_paolq")
 one_way_collision = true
 
 [node name="Sprite2D" type="Sprite2D" parent="arena" unique_id=2114266719]
-position = Vector2(192.5, 295.5)
 scale = Vector2(5.6953125, 0.5859375)
 texture = ExtResource("3_da5vq")
 
