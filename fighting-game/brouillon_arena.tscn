@@ -7,10 +7,16 @@
 [ext_resource type="PackedScene" uid="uid://kbb40ye14i8" path="res://src/scenes/PauseMenu.tscn" id="4_pause"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f8uun"]
-size = Vector2(1960.75, 499.5)
+size = Vector2(3498, 499.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lyn1t"]
 size = Vector2(489, 1985.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vrepa"]
+size = Vector2(490, 1976)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s6ld8"]
+size = Vector2(3494, 496)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_paolq"]
 size = Vector2(739, 78)
@@ -21,23 +27,23 @@ script = ExtResource("1_paolq")
 [node name="blast_zone" type="Area2D" parent="." unique_id=1245320699]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="blast_zone" unique_id=2126549232]
-position = Vector2(217, 955)
-shape = SubResource("RectangleShape2D_f8uun")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="blast_zone/CollisionShape2D" unique_id=2115490432]
-position = Vector2(2, -1937)
+position = Vector2(0, 900)
 shape = SubResource("RectangleShape2D_f8uun")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="blast_zone" unique_id=939924213]
-position = Vector2(1447, 54.25)
+position = Vector2(-1500, 0)
 shape = SubResource("RectangleShape2D_lyn1t")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="blast_zone/CollisionShape2D2" unique_id=1655174664]
-position = Vector2(-2453, -5.25)
-shape = SubResource("RectangleShape2D_lyn1t")
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="blast_zone" unique_id=1464774930]
+position = Vector2(1500, 5)
+shape = SubResource("RectangleShape2D_vrepa")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="blast_zone" unique_id=1068033269]
+position = Vector2(0, -1200)
+shape = SubResource("RectangleShape2D_s6ld8")
 
 [node name="arena" type="StaticBody2D" parent="." unique_id=1560683133]
-position = Vector2(200, 300)
+position = Vector2(0, 100)
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="arena" unique_id=301887900]
@@ -49,14 +55,13 @@ scale = Vector2(5.6953125, 0.5859375)
 texture = ExtResource("3_da5vq")
 
 [node name="President_FighterBase" parent="." unique_id=1814184204 instance=ExtResource("3_mwyi6")]
-position = Vector2(31, 74)
+position = Vector2(-150, -50)
 
 [node name="President_FighterBase2" parent="." unique_id=1365827944 instance=ExtResource("3_mwyi6")]
-position = Vector2(347, 78)
+position = Vector2(150, -50)
 player_id = 2
 
 [node name="MultiTargetCam" parent="." unique_id=1500751112 instance=ExtResource("4_lyn1t")]
-position = Vector2(195, 224)
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=962535780]
 
