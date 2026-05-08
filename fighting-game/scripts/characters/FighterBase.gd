@@ -144,7 +144,7 @@ func take_damage(damage: float, base_knockback: float, knockback_direction: Vect
 		safe_direction = Vector2(-facing_direction, -1)
 
 	# On gagne de l'ultime quand on prend des coups (ex: 50% des dégâts reçus)
-	current_ultimate = clamp(current_ultimate + (damage * 0.5), 0.0, max_ultimate)
+	current_ultimate = clamp(current_ultimate + (damage * 0.2), 0.0, max_ultimate)
 	# 5. Application de l'impulsion
 	velocity = safe_direction.normalized() * final_knockback
 	knockback_velocity = velocity 
@@ -176,7 +176,7 @@ func _on_hitbox_area_entered(area):
 			direction.y -= 0.6 
 			
 			# On gagne de l'ultime quand on tape (ex: 100% des dégâts infligés)
-			current_ultimate = clamp(current_ultimate + current_attack_damage, 0.0, max_ultimate)
+			current_ultimate = clamp(current_ultimate + current_attack_damage * 0.75, 0.0, max_ultimate)
 			ennemi.take_damage(current_attack_damage, current_attack_knockback, direction)
 
 func end_attack():
