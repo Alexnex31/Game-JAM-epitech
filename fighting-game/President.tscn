@@ -866,5 +866,8 @@ max_hp = 100.0
 weight = 0.0
 knockback_scaling = 0.4
 
+[node name="Sprite2D" parent="." index="1" unique_id=486936260]
+flip_h = true
+
 [node name="AnimationPlayer" parent="." index="2" unique_id=1460908990]
 libraries/ = SubResource("AnimationLibrary_o5j1e")

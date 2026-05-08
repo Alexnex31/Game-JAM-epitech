@@ -23,7 +23,7 @@ var is_being_grabbed: bool = false
 var grabbed_opponent: Fighter = null
 
 var double_jump_left: int = 1
-var facing_direction: int = 1 
+var facing_direction: int = 1
 
 var current_attack_damage: float = 10.0
 var current_attack_knockback: float = 100.0
