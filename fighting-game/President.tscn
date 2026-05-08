@@ -283,10 +283,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 0, 1]
+"values": [6, 7]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -466,10 +466,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [0, 1, 3, 1, 2, 0]
+"values": [6, 7, 0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -861,14 +861,10 @@ _data = {
 [node name="President_FighterBase" unique_id=1814184204 instance=ExtResource("1_qngl1")]
 script = ExtResource("2_6lstj")
 strength_multiplier = 1.0
-is_mini = null
-max_hp = null
-speed = null
-jump_velocity = null
+is_mini = false
+max_hp = 100.0
 weight = 0.0
-player_id = null
-knockback_scaling = null
-max_ultimate = null
+knockback_scaling = 0.4
 
 [node name="Sprite2D" parent="." index="1" unique_id=486936260]
 flip_h = true

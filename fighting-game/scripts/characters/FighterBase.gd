@@ -101,9 +101,9 @@ func _physics_process(delta):
 
 func update_facing():
 	if facing_direction == 1:
-		$Sprite2D.flip_h = false
-	else:
 		$Sprite2D.flip_h = true
+	else:
+		$Sprite2D.flip_h = false
 		
 	if has_node("Hitbox"):
 		$Hitbox.position.x = abs($Hitbox.position.x) * facing_direction
