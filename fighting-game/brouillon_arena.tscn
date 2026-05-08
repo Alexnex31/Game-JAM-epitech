@@ -6,10 +6,16 @@
 [ext_resource type="Script" uid="uid://dlpqodrx7aqm4" path="res://camera.gd" id="5_lyn1t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f8uun"]
-size = Vector2(15533.451, 276.375)
+size = Vector2(15533.451, 1089.1875)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lyn1t"]
-size = Vector2(489, 1985.5)
+size = Vector2(6441.5, 1985.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vrepa"]
+size = Vector2(6584, 1976)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s6ld8"]
+size = Vector2(10486, 2042)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_paolq"]
 size = Vector2(739, 78)
@@ -20,33 +26,32 @@ script = ExtResource("1_paolq")
 [node name="blast_zone" type="Area2D" parent="." unique_id=1245320699]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="blast_zone" unique_id=2126549232]
-position = Vector2(477, 781.375)
+position = Vector2(0, 1306.4063)
 shape = SubResource("RectangleShape2D_f8uun")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="blast_zone" unique_id=257988106]
-position = Vector2(-593.00006, 318)
-scale = Vector2(0.01968078, 7.124306)
-shape = SubResource("RectangleShape2D_f8uun")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="blast_zone" unique_id=1382931992]
-position = Vector2(752, -551)
-shape = SubResource("RectangleShape2D_f8uun")
-
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="blast_zone" unique_id=939924213]
-position = Vector2(1926, 67)
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="blast_zone" unique_id=939924213]
+position = Vector2(-4476.25, 0)
 shape = SubResource("RectangleShape2D_lyn1t")
 
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="blast_zone" unique_id=1464774930]
+position = Vector2(4547, 5)
+shape = SubResource("RectangleShape2D_vrepa")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="blast_zone" unique_id=1068033269]
+position = Vector2(-126, -1973)
+shape = SubResource("RectangleShape2D_s6ld8")
+
 [node name="arena" type="StaticBody2D" parent="." unique_id=1560683133]
-position = Vector2(200, 300)
+position = Vector2(0, 100)
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="arena" unique_id=301887900]
-position = Vector2(357, 137)
+position = Vector2(1, 69)
 shape = SubResource("RectangleShape2D_paolq")
 one_way_collision = true
 
 [node name="Sprite2D" type="Sprite2D" parent="arena" unique_id=2114266719]
-position = Vector2(355, 137)
+position = Vector2(2, 71)
 scale = Vector2(5.6953125, 0.5859375)
 texture = ExtResource("3_da5vq")
 
@@ -64,9 +69,9 @@ position_smoothing_enabled = true
 script = ExtResource("5_lyn1t")
 
 [node name="SpawnP1" type="Marker2D" parent="." unique_id=722686679]
-position = Vector2(322, 294)
+position = Vector2(-227, 7)
 
 [node name="SpawnP2" type="Marker2D" parent="." unique_id=934605342]
-position = Vector2(745, 292)
+position = Vector2(210, 2)
 
 [connection signal="body_entered" from="blast_zone" to="." method="_on_blast_zone_body_entered"]
