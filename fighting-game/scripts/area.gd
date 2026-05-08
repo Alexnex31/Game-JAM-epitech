@@ -11,8 +11,10 @@ const WINS_TO_VICTORY: int = 2
 
 @onready var p1_hp_bar = $UI/HUD/HBoxContainer/P1_Stats/P1_HPBar
 @onready var p1_kb_bar = $UI/HUD/HBoxContainer/P1_Stats/P1_KBBar
+@onready var p1_ult_bar = $UI/HUD/HBoxContainer/P1_Stats/P1_Ultimate
 @onready var p2_hp_bar = $UI/HUD/HBoxContainer/P2_Stats/P2_HPBar
 @onready var p2_kb_bar = $UI/HUD/HBoxContainer/P2_Stats/P2_KBBar
+@onready var p2_ult_bar = $UI/HUD/HBoxContainer/P2_Stats/P2_Ultimate
 @onready var p1_score_label = $UI/HUD/HBoxContainer/P1_Score
 @onready var p2_score_label = $UI/HUD/HBoxContainer/P2_Score
 
@@ -24,14 +26,6 @@ func _ready():
 		print("Erreur : Personnages non choisis. Lance le jeu depuis le menu !")
 		return
 
-	# 1. On récupère notre HUD
-	# Assure-toi que ton HUD s'appelle bien "HUD" dans l'arbre de scène
-	var hud = $UI/HUD 
-	
-	# 2. On donne les références des joueurs qu'on vient de créer au HUD
-	hud.player1 = p1
-	hud.player2 = p2
-	
 	# On instancie les joueurs
 	p1 = GameManager.p1_char_scene.instantiate()
 	p1.name = "Player1"
@@ -53,6 +47,8 @@ func _ready():
 	p2_hp_bar.max_value = p2.max_hp
 	p1_kb_bar.max_value = 1.0
 	p2_kb_bar.max_value = 1.0
+	p1_ult_bar.max_value = p1.max_ultimate
+	p2_ult_bar.max_value = p2.max_ultimate
 	
 	reset_positions()
 	update_score_ui()
@@ -87,12 +83,24 @@ func _process(_delta: float) -> void:
 	if is_instance_valid(p1):
 		p1_hp_bar.value = p1.current_hp
 		p1_kb_bar.value = p1.get_kb_ratio()
+		p1_ult_bar.value = p1.current_ultimate
+		if p1.current_ultimate >= p1.max_ultimate:
+			p1_ult_bar.modulate = Color(2, 2, 0) # Brillance
+		else:
+			p1_ult_bar.modulate = Color(1, 1, 1)
+			
 		if p1.current_hp <= 0:
 			handle_round_end(2)
 	
 	if is_instance_valid(p2):
 		p2_hp_bar.value = p2.current_hp
 		p2_kb_bar.value = p2.get_kb_ratio()
+		p2_ult_bar.value = p2.current_ultimate
+		if p2.current_ultimate >= p2.max_ultimate:
+			p2_ult_bar.modulate = Color(2, 2, 0) # Brillance
+		else:
+			p2_ult_bar.modulate = Color(1, 1, 1)
+			
 		if p2.current_hp <= 0:
 			handle_round_end(1)
 
