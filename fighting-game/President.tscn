@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://btjqgmgnfkknx"]
 
 [ext_resource type="PackedScene" uid="uid://cd7t7xpmbu3cx" path="res://FighterBase.tscn" id="1_qngl1"]
-[ext_resource type="Script" uid="uid://dcb3pljtce4fq" path="res://president_standard.gd" id="2_6lstj"]
+[ext_resource type="Script" uid="uid://dcb3pljtce4fq" path="res://scripts/characters/president_standard.gd" id="2_6lstj"]
 
 [sub_resource type="Animation" id="Animation_6lstj"]
 length = 0.001

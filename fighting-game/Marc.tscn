@@ -1,8 +1,13 @@
 [gd_scene format=3 uid="uid://dqt473x2caf87"]
 
 [ext_resource type="PackedScene" uid="uid://cd7t7xpmbu3cx" path="res://FighterBase.tscn" id="1_svb0j"]
-[ext_resource type="Script" uid="uid://kdqbxeic2cjs" path="res://scripts/marc_extend.gd" id="2_ycs55"]
+[ext_resource type="Script" uid="uid://w0wqeg7ixj5h" path="res://scripts/characters/marc_standard.gd" id="2_svb0j"]
 
 [node name="Marc_FighterBase" unique_id=1814184204 instance=ExtResource("1_svb0j")]
-script = ExtResource("2_ycs55")
+script = ExtResource("2_svb0j")
 stand_scene = null
+max_hp = 100.0
+speed = 300.0
+jump_velocity = -600.0
+weight = 1.0
+player_id = 1

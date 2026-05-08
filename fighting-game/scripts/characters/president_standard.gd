@@ -7,19 +7,18 @@ var buff_timer: float = 0.0
 var mini_timer: float = 0.0
 
 func _physics_process(delta):
-	# Gestion des timers
 	if buff_timer > 0:
 		buff_timer -= delta
 		if buff_timer <= 0: 
 			strength_multiplier = 1.0
-			modulate = Color(1, 1, 1) # Retour à la couleur normale
+			modulate = Color(1, 1, 1)
 			
 	if mini_timer > 0:
 		mini_timer -= delta
 		if mini_timer <= 0: 
 			end_ultimate()
 
-	if not is_attacking and not is_being_grabbed:
+	if not is_attacking and not is_being_grabbed and knockback_velocity.length() <= 50:
 		check_attack_inputs()
 
 	super._physics_process(delta)
@@ -29,20 +28,18 @@ func check_attack_inputs():
 	var down = Input.is_action_pressed(get_input_string("move_down"))
 	var side = abs(Input.get_axis(get_input_string("move_left"), get_input_string("move_right"))) > 0.5
 	
-	# --- NORMAL ---
 	if Input.is_action_just_pressed(get_input_string("attack_normal")):
 		if is_on_floor():
 			if up: play_move("uppercut")
 			elif down: play_move("poirier")
 			elif side: play_move("dash_attack")
 			else: play_move("neutral")
-		else: # En l'air
+		else:
 			if up: play_move("air_headbutt")
 			elif down: play_move("air_kick")
 			elif side: play_move("air_dash_attack")
 			else: play_move("air_spin")
 
-	# --- SPECIAL ---
 	elif Input.is_action_just_pressed(get_input_string("attack_special")):
 		if is_on_floor():
 			if up: play_move("spec_up")
@@ -52,7 +49,6 @@ func check_attack_inputs():
 		else:
 			play_move("spec_air")
 
-	# --- ULTIME ---
 	elif Input.is_action_just_pressed(get_input_string("attack_ultimate")):
 		start_ultimate()
 
@@ -66,7 +62,7 @@ func power_jump():
 	current_attack_knockback = 400
 
 func power_dash():
-	apply_dash_boost(1200) # On utilise la nouvelle fonction propre !
+	apply_dash_boost(1000)
 
 func spec_neutral():
 	strength_multiplier = 1.5

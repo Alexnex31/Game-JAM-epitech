@@ -33,4 +33,4 @@ func assign_character(chosen_scene: PackedScene):
 		GameManager.p2_char_scene = chosen_scene
 		print("Joueur 2 a choisi ! Lancement du combat...")
 		# On charge l'arène
-		get_tree().change_scene_to_file("res://brouillon_arena.tscn")
+		get_tree().change_scene_to_file("res://src/scenes/brouillon_arena.tscn")

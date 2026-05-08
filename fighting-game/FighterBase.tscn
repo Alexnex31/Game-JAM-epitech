@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cd7t7xpmbu3cx"]
 
-[ext_resource type="Script" uid="uid://cmgjio17olcfa" path="res://scripts/FighterBase.gd" id="1_fg743"]
+[ext_resource type="Script" uid="uid://cmgjio17olcfa" path="res://scripts/characters/FighterBase.gd" id="1_fg743"]
 [ext_resource type="Texture2D" uid="uid://bn5y7dwt1qqau" path="res://icon.svg" id="2_wabvh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wabvh"]

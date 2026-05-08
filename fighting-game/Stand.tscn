@@ -1,7 +1,15 @@
 [gd_scene format=3 uid="uid://d2ln0247hkhtu"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=2079005306]
+[ext_resource type="Script" uid="uid://dvvmhmje1p8to" path="res://scripts/characters/stand.gd" id="1_0xgy6"]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1553460037]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iqhrq"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=2079005306]
+script = ExtResource("1_0xgy6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1870647189]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=47029706]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=403573436]
+shape = SubResource("CapsuleShape2D_iqhrq")
