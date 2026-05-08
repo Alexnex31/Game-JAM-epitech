@@ -100,6 +100,34 @@ size_flags_horizontal = 3
 script = ExtResource("2_btn_script")
 action_name = "attack_special_1"
 
+[node name="AttackUltimate1" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ActionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/ActionsList/AttackUltimate1"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Attaque Ultime"
+
+[node name="Button" type="Button" parent="VBoxContainer/ScrollContainer/ActionsList/AttackUltimate1"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_btn_script")
+action_name = "attack_ultimate_1"
+
+[node name="Grab1" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ActionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/ActionsList/Grab1"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Chope (Grab)"
+
+[node name="Button" type="Button" parent="VBoxContainer/ScrollContainer/ActionsList/Grab1"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_btn_script")
+action_name = "grab_1"
+
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/ScrollContainer/ActionsList"]
 layout_mode = 2
 
@@ -137,6 +165,48 @@ size_flags_horizontal = 3
 script = ExtResource("2_btn_script")
 action_name = "attack_normal_2"
 
+[node name="AttackSpecial2" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ActionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/ActionsList/AttackSpecial2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Attaque Spéciale"
+
+[node name="Button" type="Button" parent="VBoxContainer/ScrollContainer/ActionsList/AttackSpecial2"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_btn_script")
+action_name = "attack_special_2"
+
+[node name="AttackUltimate2" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ActionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/ActionsList/AttackUltimate2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Attaque Ultime"
+
+[node name="Button" type="Button" parent="VBoxContainer/ScrollContainer/ActionsList/AttackUltimate2"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_btn_script")
+action_name = "attack_ultimate_2"
+
+[node name="Grab2" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ActionsList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/ActionsList/Grab2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Chope (Grab)"
+
+[node name="Button" type="Button" parent="VBoxContainer/ScrollContainer/ActionsList/Grab2"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_btn_script")
+action_name = "grab_2"
+
 [node name="Retour" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "RETOUR"
@@ -144,6 +214,11 @@ text = "RETOUR"
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/ActionsList/Jump1/Button" to="VBoxContainer/ScrollContainer/ActionsList/Jump1/Button" method="_on_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/ActionsList/AttackNormal1/Button" to="VBoxContainer/ScrollContainer/ActionsList/AttackNormal1/Button" method="_on_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/ActionsList/AttackSpecial1/Button" to="VBoxContainer/ScrollContainer/ActionsList/AttackSpecial1/Button" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/ActionsList/AttackUltimate1/Button" to="VBoxContainer/ScrollContainer/ActionsList/AttackUltimate1/Button" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/ActionsList/Grab1/Button" to="VBoxContainer/ScrollContainer/ActionsList/Grab1/Button" method="_on_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/ActionsList/Jump2/Button" to="VBoxContainer/ScrollContainer/ActionsList/Jump2/Button" method="_on_pressed"]
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/ActionsList/AttackNormal2/Button" to="VBoxContainer/ScrollContainer/ActionsList/AttackNormal2/Button" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/ActionsList/AttackSpecial2/Button" to="VBoxContainer/ScrollContainer/ActionsList/AttackSpecial2/Button" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/ActionsList/AttackUltimate2/Button" to="VBoxContainer/ScrollContainer/ActionsList/AttackUltimate2/Button" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/ActionsList/Grab2/Button" to="VBoxContainer/ScrollContainer/ActionsList/Grab2/Button" method="_on_pressed"]
 [connection signal="pressed" from="VBoxContainer/Retour" to="." method="_on_retour_pressed"]
