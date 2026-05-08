@@ -110,17 +110,20 @@ func update_facing():
 # --- SYSTEME DE COMBAT ---
 
 func take_damage(damage: float, base_knockback: float, knockback_direction: Vector2):
-	# --- SÉCURITÉ ANTI MULTI-HIT ---
 	if invuln_timer > 0:
 		return 
 		
 	invuln_timer = 0.2 
-	# -------------------------------
+
+	# --- NOUVEAU FIX : Relâcher la victime si on est interrompu ---
+	if is_grabbing and grabbed_opponent != null:
+		grabbed_opponent.is_being_grabbed = false
+		grabbed_opponent = null
+	# ---------------------------------------------------------------
 
 	current_hp -= damage
 	if current_hp <= 0: current_hp = 0
 
-	# SÉCURITÉ 1 : Empêcher la division par zéro si max_hp est à 0
 	var safe_max_hp = max(max_hp, 1.0) 
 	var missing_health_ratio = (safe_max_hp - current_hp) / safe_max_hp 
 	var knockback_multiplier = 1.0 + (missing_health_ratio * 1.0) 
@@ -202,3 +205,8 @@ func execute_throw():
 func apply_dash_boost(force: float):
 	velocity.x = force * facing_direction
 	velocity.y = 0
+
+
+func _on_animation_player_animation_finished(anim_name):
+	end_attack()
+	release_grab() # Au cas où une chope plante

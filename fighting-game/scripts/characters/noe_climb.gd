@@ -50,8 +50,12 @@ func check_attack_inputs():
 			start_ultimate()
 
 func play_move(anim_name: String):
-	is_attacking = true
-	$AnimationPlayer.play(anim_name)
+	# On vérifie que l'animation existe bien dans la liste !
+	if $AnimationPlayer.has_animation(anim_name):
+		is_attacking = true
+		$AnimationPlayer.play(anim_name)
+	else:
+		print("ATTENTION: L'animation '", anim_name, "' manque !")
 
 # --- MECANIQUES SPECIFIQUES AU SPEEDSTER ---
 
