@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://cd7t7xpmbu3cx" path="res://FighterBase.tscn" id="1_svb0j"]
 [ext_resource type="Script" uid="uid://w0wqeg7ixj5h" path="res://scripts/characters/marc_standard.gd" id="2_svb0j"]
+[ext_resource type="Texture2D" uid="uid://cvrpbss176b5" path="res://spritesheet_president.png" id="3_ycs55"]
 
 [node name="Marc_FighterBase" unique_id=1814184204 instance=ExtResource("1_svb0j")]
 script = ExtResource("2_svb0j")
 stand_scene = null
 max_hp = 100.0
-speed = 300.0
-jump_velocity = -600.0
-weight = 1.0
-player_id = 1
+
+[node name="Sprite2D" parent="." index="1" unique_id=486936260]
+texture = ExtResource("3_ycs55")

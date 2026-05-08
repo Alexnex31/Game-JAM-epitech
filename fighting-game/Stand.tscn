@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://d2ln0247hkhtu"]
 
 [ext_resource type="Script" uid="uid://dvvmhmje1p8to" path="res://scripts/characters/stand.gd" id="1_0xgy6"]
+[ext_resource type="Texture2D" uid="uid://cvrpbss176b5" path="res://spritesheet_president.png" id="2_iqhrq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iqhrq"]
 
@@ -10,6 +11,7 @@ script = ExtResource("1_0xgy6")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1870647189]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=47029706]
+texture = ExtResource("2_iqhrq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=403573436]
 shape = SubResource("CapsuleShape2D_iqhrq")

@@ -25,26 +25,33 @@ func check_attack_inputs():
 	var down = Input.is_action_pressed(get_input_string("move_down"))
 	var side = abs(Input.get_axis(get_input_string("move_left"), get_input_string("move_right"))) > 0.5
 	
-	# --- NORMAL (Le Joueur attaque - coups faibles) ---
 	if Input.is_action_just_pressed(get_input_string("attack_normal")):
 		if is_on_floor():
-			if up: play_move("player_up")
-			elif down: play_move("player_down")
-			elif side: play_move("player_side")
-			else: play_move("player_neutral")
+			if up: play_move("uppercut")
+			elif down: play_move("poirier")
+			elif side: play_move("dash_attack")
+			else: play_move("neutral")
 		else:
-			play_move("player_air")
+			if up: play_move("air_headbutt")
+			elif down: 
+				play_move("air_kick")
+				velocity.y = 0
+			elif side: play_move("air_dash_attack")
+			else: play_move("air_spin")
 
-	# --- SPECIAL (Le Stand attaque !) ---
-	elif Input.is_action_just_pressed(get_input_string("attack_special")) and is_stand_active:
-		# On ne bloque pas forcément le joueur, on dit au Stand d'attaquer !
+	elif Input.is_action_just_pressed(get_input_string("attack_special")):
 		if is_on_floor():
-			if up: my_stand.play_move("stand_up")
-			elif down: my_stand.play_move("stand_down")
-			elif side: my_stand.play_move("stand_side")
-			else: my_stand.play_move("stand_neutral")
+			if up: play_move("spec_up")
+			elif down: play_move("spec_down")
+			elif side: play_move("spec_side")
+			else: play_move("spec_neutral")
 		else:
-			my_stand.play_move("stand_air")
+			if up: play_move("spec_air_headbutt")
+			elif down: 
+				play_move("spec_air_kick")
+				velocity.y = 0
+			elif side: play_move("spec_air_dash_attack")
+			else: play_move("spec_air")
 
 	# --- ULTIME (Invoquer / Rappeler le Stand) ---
 	elif Input.is_action_just_pressed(get_input_string("attack_ultimate")):
@@ -61,6 +68,13 @@ func toggle_stand():
 		my_stand.hide()
 
 func play_move(anim_name: String):
+	# --- NOUVEAU : Vérification de la limite aérienne ---
+	if not is_on_floor():
+		if air_attacks_left <= 0:
+			return # On bloque l'attaque, la limite est atteinte !
+		air_attacks_left -= 1 # On consomme une attaque en l'air
+	# -----------------------------------------------------
+
 	# On vérifie que l'animation existe bien dans la liste !
 	if $AnimationPlayer.has_animation(anim_name):
 		is_attacking = true

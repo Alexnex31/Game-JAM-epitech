@@ -21,28 +21,33 @@ func check_attack_inputs():
 	var down = Input.is_action_pressed(get_input_string("move_down"))
 	var side = abs(Input.get_axis(get_input_string("move_left"), get_input_string("move_right"))) > 0.5
 	
-	# --- NORMAL ATTACKS (Rapides) ---
 	if Input.is_action_just_pressed(get_input_string("attack_normal")):
 		if is_on_floor():
-			if up: play_move("rapid_up")
-			elif down: play_move("slide_kick")
-			elif side: play_move("quick_dash_strike")
-			else: play_move("jab_combo")
+			if up: play_move("uppercut")
+			elif down: play_move("poirier")
+			elif side: play_move("dash_attack")
+			else: play_move("neutral")
 		else:
-			if up: play_move("air_drill_up")
-			elif down: play_move("dive_kick") # Plongeon rapide vers le sol
-			elif side: play_move("air_side_kick")
-			else: play_move("air_flurry")
+			if up: play_move("air_headbutt")
+			elif down: 
+				play_move("air_kick")
+				velocity.y = 0
+			elif side: play_move("air_dash_attack")
+			else: play_move("air_spin")
 
-	# --- SPECIAL ATTACKS (Mouvements extrêmes) ---
 	elif Input.is_action_just_pressed(get_input_string("attack_special")):
 		if is_on_floor():
-			if up: play_move("teleport_up")
-			elif down: play_move("counter_stance") # Une garde/esquive
-			elif side: play_move("piercing_dash") # Traverse l'ennemi
-			else: play_move("multi_slap")
+			if up: play_move("spec_up")
+			elif down: play_move("spec_down")
+			elif side: play_move("spec_side")
+			else: play_move("spec_neutral")
 		else:
-			play_move("air_teleport")
+			if up: play_move("spec_air_headbutt")
+			elif down: 
+				play_move("spec_air_kick")
+				velocity.y = 0
+			elif side: play_move("spec_air_dash_attack")
+			else: play_move("spec_air")
 
 	# --- ULTIME ---
 	elif Input.is_action_just_pressed(get_input_string("attack_ultimate")):
@@ -52,6 +57,13 @@ func check_attack_inputs():
 			print("Ultime pas encore prêt ! Charge : ", current_ultimate)
 
 func play_move(anim_name: String):
+	# --- NOUVEAU : Vérification de la limite aérienne ---
+	if not is_on_floor():
+		if air_attacks_left <= 0:
+			return # On bloque l'attaque, la limite est atteinte !
+		air_attacks_left -= 1 # On consomme une attaque en l'air
+	# -----------------------------------------------------
+
 	# On vérifie que l'animation existe bien dans la liste !
 	if $AnimationPlayer.has_animation(anim_name):
 		is_attacking = true

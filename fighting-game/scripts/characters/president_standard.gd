@@ -72,6 +72,13 @@ func check_attack_inputs():
 			print("Ultime pas encore prêt ! Charge : ", current_ultimate)
 
 func play_move(anim_name: String):
+	# --- NOUVEAU : Vérification de la limite aérienne ---
+	if not is_on_floor():
+		if air_attacks_left <= 0:
+			return # On bloque l'attaque, la limite est atteinte !
+		air_attacks_left -= 1 # On consomme une attaque en l'air
+	# -----------------------------------------------------
+
 	# On vérifie que l'animation existe bien dans la liste !
 	if $AnimationPlayer.has_animation(anim_name):
 		is_attacking = true

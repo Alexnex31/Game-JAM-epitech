@@ -1,7 +1,7 @@
 class_name Fighter extends CharacterBody2D
 
 # --- STATISTIQUES ---
-@export var max_hp: float = 100.0
+@export var max_hp: float = 200.0
 @export var speed: float = 300.0
 @export var jump_velocity: float = -600.0
 @export var weight: float = 1.0
@@ -9,7 +9,7 @@ class_name Fighter extends CharacterBody2D
 @export var gravity_multiplier: float = 1.0
 
 # Multiplicateur global pour régler la puissance de tous les coups du jeu d'un coup
-@export var knockback_scaling: float = 0.4
+@export var knockback_scaling: float = 0.3
 
 # --- JAUGE D'ULTIME ---
 @export var max_ultimate: float = 100.0
@@ -29,7 +29,11 @@ var grabbed_opponent: Fighter = null
 var double_jump_left: int = 1
 var facing_direction: int = 1
 
-var current_attack_damage: float = 10.0
+# --- NOUVEAU : Limite d'attaques en l'air ---
+var max_air_attacks: int = 2
+var air_attacks_left: int = 2
+
+var current_attack_damage: float = 5.0
 var current_attack_knockback: float = 100.0
 
 # --- NOUVEAU : Timer d'invincibilité (anti multi-hit) ---
@@ -70,6 +74,7 @@ func _physics_process(delta):
 		velocity.y += (gravity * gravity_multiplier) * delta
 	else:
 		double_jump_left = 1
+		air_attacks_left = max_air_attacks # <-- On recharge les attaques au sol !
 
 	# 2. Diminution du verrouillage de la manette (Hitstun)
 	if knockback_velocity.length() > 50:
@@ -144,7 +149,7 @@ func take_damage(damage: float, base_knockback: float, knockback_direction: Vect
 	# On élève le ratio au carré pour que le knockback n'augmente pas trop vite au début
 	# mais devienne massif à la fin.
 	# Formule : 1.0 + (ratio * ratio * multiplicateur_de_puissance)
-	var power_factor = 5.0 # Augmente ce chiffre pour que les persos volent encore plus loin à bas PV
+	var power_factor = 2.0 # Augmente ce chiffre pour que les persos volent encore plus loin à bas PV
 	var knockback_multiplier = 1.0 + (missing_health_ratio * missing_health_ratio * power_factor)
 	
 	# 3. Calcul final avec le poids et le scaling global
