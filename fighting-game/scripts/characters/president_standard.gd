@@ -18,6 +18,14 @@ func _physics_process(delta):
 		if mini_timer <= 0: 
 			end_ultimate()
 
+	if not is_attacking:
+		if is_on_floor():
+			if $AnimationPlayer.has_animation("RESET"):
+				$AnimationPlayer.play("RESET")
+		else:
+			if $AnimationPlayer.has_animation("RESET_AIR"):
+				$AnimationPlayer.play("RESET_AIR")
+
 	if not is_attacking and not is_being_grabbed and knockback_velocity.length() <= 50:
 		check_attack_inputs()
 
@@ -49,7 +57,12 @@ func check_attack_inputs():
 			elif side: play_move("spec_side")
 			else: play_move("spec_neutral")
 		else:
-			play_move("spec_air")
+			if up: play_move("spec_air_headbutt")
+			elif down: 
+				play_move("spec_air_kick")
+				velocity.y = 0
+			elif side: play_move("spec_air_dash_attack")
+			else: play_move("spec_air")
 
 	# --- ULTIME ---
 	elif Input.is_action_just_pressed(get_input_string("attack_ultimate")):

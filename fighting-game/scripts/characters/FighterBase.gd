@@ -43,6 +43,19 @@ func get_input_string(action_name: String) -> String:
 	
 func _ready():
 	current_hp = max_hp
+	
+	# --- CONFIGURATION DU MARQUEUR DE JOUEUR ---
+	if has_node("PlayerMarker"):
+		var marker = $PlayerMarker
+		if player_id == 1:
+			# Bleu pour le Joueur 1
+			marker.modulate = Color(0.2, 0.6, 1.0) 
+			# Si tu as mis un Label enfant pour le texte :
+			if marker.has_node("Label"): marker.get_node("Label").text = "P1"
+		elif player_id == 2:
+			# Rouge pour le Joueur 2
+			marker.modulate = Color(1.0, 0.2, 0.2)
+			if marker.has_node("Label"): marker.get_node("Label").text = "P2"
 
 func _physics_process(delta):
 	# Diminution du chrono d'invincibilité

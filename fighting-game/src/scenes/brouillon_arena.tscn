@@ -1,25 +1,26 @@
 [gd_scene format=3 uid="uid://bkwmw04xhsw01"]
 
 [ext_resource type="Script" uid="uid://c0cu2pi8sj3nb" path="res://scripts/area.gd" id="1_paolq"]
-[ext_resource type="Texture2D" uid="uid://bn5y7dwt1qqau" path="res://icon.svg" id="3_da5vq"]
-[ext_resource type="Script" uid="uid://j62o0uyk3dd0" path="res://hud.gd" id="3_yk5rw"]
+[ext_resource type="Texture2D" uid="uid://dadm0wn8ts7gj" path="res://basic_background.jpg" id="4_fc6x7"]
 [ext_resource type="PackedScene" uid="uid://kbb40ye14i8" path="res://src/scenes/PauseMenu.tscn" id="4_pause"]
+[ext_resource type="Script" uid="uid://d2p17nec1ejiq" path="res://background_randomizer.gd" id="4_yk5rw"]
 [ext_resource type="Script" uid="uid://dlpqodrx7aqm4" path="res://scripts/camera.gd" id="5_lyn1t"]
+[ext_resource type="Texture2D" uid="uid://brunxe2gtfg5v" path="res://super_background.jpg" id="6_l3b2b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f8uun"]
 size = Vector2(15533.451, 1089.1875)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lyn1t"]
-size = Vector2(6441.5, 1985.5)
+size = Vector2(6441.5, 3828.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vrepa"]
-size = Vector2(6584, 1976)
+size = Vector2(6584, 3699)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s6ld8"]
 size = Vector2(10486, 2042)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_paolq"]
-size = Vector2(739, 78)
+size = Vector2(1414, 78)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_bg"]
 bg_color = Color(0.1, 0.1, 0.1, 0.5)
@@ -69,19 +70,19 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="blast_zone" unique_id=2126549232]
-position = Vector2(0, 1306.4063)
+position = Vector2(43, 1791)
 shape = SubResource("RectangleShape2D_f8uun")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="blast_zone" unique_id=939924213]
-position = Vector2(-4476.25, 0)
+position = Vector2(-5177, -633)
 shape = SubResource("RectangleShape2D_lyn1t")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="blast_zone" unique_id=1464774930]
-position = Vector2(4547, 5)
+position = Vector2(5243, -580)
 shape = SubResource("RectangleShape2D_vrepa")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="blast_zone" unique_id=1068033269]
-position = Vector2(-126, -1973)
+position = Vector2(-15, -2198)
 shape = SubResource("RectangleShape2D_s6ld8")
 
 [node name="arena" type="StaticBody2D" parent="." unique_id=1560683133]
@@ -89,14 +90,9 @@ position = Vector2(0, 100)
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="arena" unique_id=301887900]
-position = Vector2(1, 69)
+position = Vector2(12, 69)
 shape = SubResource("RectangleShape2D_paolq")
 one_way_collision = true
-
-[node name="Sprite2D" type="Sprite2D" parent="arena" unique_id=2114266719]
-position = Vector2(2, 71)
-scale = Vector2(5.6953125, 0.5859375)
-texture = ExtResource("3_da5vq")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=2073642519]
 
@@ -259,5 +255,14 @@ position = Vector2(-227, 7)
 
 [node name="SpawnP2" type="Marker2D" parent="." unique_id=934605342]
 position = Vector2(210, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=934665513]
+
+[node name="BasicBackground" type="Sprite2D" parent="." unique_id=1145811052]
+position = Vector2(0, 54)
+scale = Vector2(1.1930147, 1)
+script = ExtResource("4_yk5rw")
+texture_frequente = ExtResource("4_fc6x7")
+texture_rare = ExtResource("6_l3b2b")
 
 [connection signal="body_entered" from="blast_zone" to="." method="_on_blast_zone_body_entered"]
