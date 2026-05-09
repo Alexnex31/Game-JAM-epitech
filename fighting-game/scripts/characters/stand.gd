@@ -1,17 +1,17 @@
-extends Node2D
+class_name Stand extends CharacterBody2D
 
 var master_player: Fighter = null
 var is_attacking: bool = false
 
 # Paramètres de combat du Stand
-var current_attack_damage: float = 12.0
+var current_attack_damage: float = 8.0
 var current_attack_knockback: float = 600.0
 
 # --- STATISTIQUES ---
 @export var max_hp: float = 200.0
 @export var speed: float = 300.0
 @export var jump_velocity: float = -600.0
-@export var weight: float = 1.0
+@export var weight: float = 0.8
 @export var gravity_multiplier: float = 1.0
 
 # Multiplicateur global pour régler la puissance de tous les coups du jeu d'un coup
@@ -23,7 +23,6 @@ var current_attack_knockback: float = 600.0
 @export var current_hp: float
 
 # Timer de Hitstun (pour bloquer la manette après un coup)
-var velocity: Vector2 = Vector2.ZERO 
 var knockback_velocity: Vector2 = Vector2.ZERO 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -64,17 +63,23 @@ func _process(delta):
 		# Il se place un peu au-dessus et derrière le joueur
 		var target_pos = master_player.global_position + Vector2(-60 * master_player.facing_direction, -40)
 		global_position = global_position.lerp(target_pos, 5 * delta)
+	else:
+		move_and_slide()
 
 func take_damage(damage: float, base_knockback: float, knockback_direction: Vector2):
 	# --- SÉCURITÉ ANTI MULTI-HIT ---
 	if invuln_timer > 0:
 		return 
-	invuln_timer = 0.2 
+	invuln_timer = 0.2
+	current_hp = master_player.current_ultimate
 	current_hp -= damage
 	if damage > master_player.current_ultimate:
 		master_player.current_ultimate = damage
 	master_player.current_ultimate -= damage
-	if current_hp <= 0: current_hp = 0
+	if current_hp <= 0:
+		current_hp = 0
+		master_player.is_stand_active = false
+		self.hide()
 	# 1. Calcul du ratio de vie perdue (0.0 à 1.0)
 	var safe_max_hp = max(max_hp, 1.0) 
 	var missing_health_ratio = (safe_max_hp - current_hp) / safe_max_hp 
@@ -113,6 +118,21 @@ func command_attack(anim_name: String):
 # A appeler à la fin de chaque animation du Stand via la piste Call Method !
 func end_attack():
 	is_attacking = false
+	
+func power_jump():
+	velocity.y = -800
+	velocity.x = 0
+	current_attack_knockback = 400
+	
+func apply_dash_boost(force: float):
+	velocity.x = force * facing_direction
+	velocity.y = 0
+
+func power_dash():
+	apply_dash_boost(1000)
+
+func spec_neutral():
+	return
 
 func _on_hitbox_area_entered(area):
 	if area.name == "Hurtbox" and area.get_parent() != master_player and area.get_parent() != self:

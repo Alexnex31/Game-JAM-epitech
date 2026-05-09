@@ -1175,6 +1175,5 @@ libraries/cecilya = SubResource("AnimationLibrary_qlvpy")
 [node name="CollisionShape2D" parent="Hurtbox" parent_id_path=PackedInt32Array(1052360381) index="0" unique_id=594891278]
 position = Vector2(0, -37)
 
-[node name="CollisionShape2D" parent="Hitbox" parent_id_path=PackedInt32Array(1044187355) index="0" unique_id=546312405]
-position = Vector2(-3, -40)
-shape = SubResource("CircleShape2D_qlvpy")
+[node name="CollisionShape2D" parent="GrabArea" parent_id_path=PackedInt32Array(906132722) index="0" unique_id=536542194]
+position = Vector2(40, -36)

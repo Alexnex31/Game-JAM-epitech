@@ -70,8 +70,12 @@ func check_attack_inputs():
 		toggle_stand()
 
 func toggle_stand():
+	if current_ultimate < 10:
+		is_stand_active = false
+		my_stand.hide()
+		return
 	is_stand_active = !is_stand_active
-	if is_stand_active and current_ultimate >= 10:
+	if is_stand_active:
 		my_stand.current_hp = current_ultimate
 		my_stand.show()
 		# On place le stand juste derrière le joueur lors de l'invocation

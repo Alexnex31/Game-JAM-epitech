@@ -565,8 +565,17 @@ _data = {
 script = ExtResource("2_svb0j")
 stand_scene = ExtResource("3_u0p0g")
 
+[node name="CollisionShape2D" parent="." index="0" unique_id=1207794945]
+position = Vector2(0, -34)
+
 [node name="Sprite2D" parent="." index="1" unique_id=486936260]
 texture = ExtResource("3_ycs55")
 
 [node name="AnimationPlayer" parent="." index="2" unique_id=1460908990]
 libraries/marc = SubResource("AnimationLibrary_u0p0g")
+
+[node name="CollisionShape2D" parent="Hurtbox" parent_id_path=PackedInt32Array(1052360381) index="0" unique_id=594891278]
+position = Vector2(1, -37)
+
+[node name="CollisionShape2D" parent="GrabArea" parent_id_path=PackedInt32Array(906132722) index="0" unique_id=536542194]
+position = Vector2(43, -37)

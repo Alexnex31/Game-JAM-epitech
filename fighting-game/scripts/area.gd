@@ -59,6 +59,7 @@ func reset_positions():
 	p1.global_position = $SpawnP1.global_position
 	p1.velocity = Vector2.ZERO
 	p1.current_hp = p1.max_hp
+	p1.current_ultimate = 0
 	p1.knockback_velocity = Vector2.ZERO
 	p1.facing_direction = 1
 	p1.update_facing()
@@ -67,6 +68,7 @@ func reset_positions():
 	p2.global_position = $SpawnP2.global_position
 	p2.velocity = Vector2.ZERO
 	p2.current_hp = p2.max_hp
+	p2.current_ultimate = 0
 	p2.knockback_velocity = Vector2.ZERO
 	p2.facing_direction = -1
 	p2.update_facing()
