@@ -138,18 +138,13 @@ func take_damage(damage: float, base_knockback: float, knockback_direction: Vect
 	if invuln_timer > 0:
 		return 
 	invuln_timer = 0.2 
-	# -------------------------------
-
 	current_hp -= damage
 	if current_hp <= 0: current_hp = 0
-
 	# 1. Calcul du ratio de vie perdue (0.0 à 1.0)
 	var safe_max_hp = max(max_hp, 1.0) 
 	var missing_health_ratio = (safe_max_hp - current_hp) / safe_max_hp 
 
 	# 2. LE SECRET DU KNOCKBACK : La courbe exponentielle
-	# On élève le ratio au carré pour que le knockback n'augmente pas trop vite au début
-	# mais devienne massif à la fin.
 	# Formule : 1.0 + (ratio * ratio * multiplicateur_de_puissance)
 	var power_factor = 2.0 # Augmente ce chiffre pour que les persos volent encore plus loin à bas PV
 	var knockback_multiplier = 1.0 + (missing_health_ratio * missing_health_ratio * power_factor)
@@ -180,9 +175,12 @@ func get_kb_ratio() -> float:
 func _on_hitbox_area_entered(area):
 	if not is_attacking:
 		return 
-		
+	
 	if area.name == "Hurtbox" and area.get_parent() != self:
 		var ennemi = area.get_parent()
+		
+		if ennemi in self.get_children():
+			return
 		
 		if ennemi.invuln_timer <= 0:
 			# SÉCURITÉ 4 : Éviter le Vector2.ZERO si les joueurs sont au même pixel
