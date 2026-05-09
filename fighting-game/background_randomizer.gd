@@ -13,6 +13,8 @@ func _ready():
 	# Sinon (les 10% restants), on met la texture rare.
 	if hasard < 0.9:
 		texture = texture_frequente
+		MusicManager.play_arena_common()
 	else:
 		texture = texture_rare
 		print("Chanceux ! Le background rare a été chargé.")
+		MusicManager.play_arena_rare()

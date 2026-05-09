@@ -32,6 +32,8 @@ var p2_last_move = 0.0
 const MOVE_DELAY = 150 # millisecondes
 
 func _ready():
+	# Change la musique quand on arrive sur la sélection de personnage
+	MusicManager.play_char_select_music()
 	setup_grid()
 	update_selection_ui()
 	char_grid.visible = false

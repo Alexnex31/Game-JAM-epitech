@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://coecowjc7645s"]
+
+[ext_resource type="Script" uid="uid://c7w4hxprml288" path="res://music_manager.gd" id="1_7bbi8"]
+[ext_resource type="AudioStream" uid="uid://usprvcywfyul" path="res://527560_EnV---Valiant.mp3" id="2_73e63"]
+[ext_resource type="AudioStream" uid="uid://41je7k0ahjkd" path="res://1090123_Phase-Distorter.mp3" id="3_qjlvf"]
+[ext_resource type="AudioStream" uid="uid://dp1std4pvs41g" path="res://175011_09___zircon__Andrew_Aversa.mp3" id="4_3mv01"]
+[ext_resource type="AudioStream" uid="uid://kidosfvd4stc" path="res://Bandit - Electro House.mp3" id="5_n3dty"]
+
+[node name="MusicManager" type="AudioStreamPlayer" unique_id=1121321427]
+script = ExtResource("1_7bbi8")
+track_menu = ExtResource("2_73e63")
+track_char_select = ExtResource("3_qjlvf")
+track_arena_common = ExtResource("4_3mv01")
+track_arena_rare = ExtResource("5_n3dty")

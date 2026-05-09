@@ -1,6 +1,8 @@
 extends Control
 
 func _ready():
+	# Lance la musique du menu. Si on revient depuis les Paramètres, elle ne se coupera pas !
+	MusicManager.play_menu_music()
 	$CenterContainer/VBoxContainer/Jouer.grab_focus()
 
 func _on_jouer_pressed():
