@@ -203,7 +203,11 @@ func end_attack():
 func start_grab():
 	is_attacking = true
 	is_grabbing = true
-	$AnimationPlayer.play("grab_attempt")
+	if $AnimationPlayer.has_animation("grab_attempt"):
+		is_attacking = true
+		$AnimationPlayer.play("grab_attempt")
+	else:
+		print("ATTENTION: L'animation 'grab_attempt' manque !")
 
 func _on_grab_area_area_entered(area):
 	if is_grabbing and area.name == "Hurtbox":
@@ -214,7 +218,11 @@ func _on_grab_area_area_entered(area):
 func catch_opponent(target):
 	grabbed_opponent = target
 	target.be_grabbed(self)
-	$AnimationPlayer.play("grab_success")
+	if $AnimationPlayer.has_animation("grab_success"):
+		is_attacking = true
+		$AnimationPlayer.play("grab_success")
+	else:
+		print("ATTENTION: L'animation 'grab_success' manque !")
 
 func be_grabbed(attacker):
 	is_being_grabbed = true

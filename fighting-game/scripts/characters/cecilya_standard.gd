@@ -16,31 +16,31 @@ func check_attack_inputs():
 	
 	if Input.is_action_just_pressed(get_input_string("attack_normal")):
 		if is_on_floor():
-			if up: play_move("uppercut")
-			elif down: play_move("poirier")
-			elif side: play_move("dash_attack")
-			else: play_move("neutral")
+			if up: play_move("cecilya/uppercut")
+			elif down: play_move("cecilya/poirier")
+			elif side: play_move("cecilya/dash_attack")
+			else: play_move("cecilya/neutral")
 		else:
-			if up: play_move("air_headbutt")
+			if up: play_move("cecilya/air_headbutt")
 			elif down: 
-				play_move("air_kick")
+				play_move("cecilya/air_kick")
 				velocity.y = 0
-			elif side: play_move("air_dash_attack")
-			else: play_move("air_spin")
+			elif side: play_move("cecilya/air_dash_attack")
+			else: play_move("cecilya/air_spin")
 
 	elif Input.is_action_just_pressed(get_input_string("attack_special")):
 		if is_on_floor():
-			if up: play_move("spec_up")
-			elif down: play_move("spec_down")
-			elif side: play_move("spec_side")
-			else: play_move("spec_neutral")
+			if up: play_move("cecilya/spec_up")
+			elif down: play_move("cecilya/spec_down")
+			elif side: play_move("cecilya/spec_side")
+			else: play_move("cecilya/spec_neutral")
 		else:
-			if up: play_move("spec_air_headbutt")
+			if up: play_move("cecilya/spec_air_headbutt")
 			elif down: 
-				play_move("spec_air_kick")
+				play_move("cecilya/spec_air_kick")
 				velocity.y = 0
-			elif side: play_move("spec_air_dash_attack")
-			else: play_move("spec_air")
+			elif side: play_move("cecilya/spec_air_dash_attack")
+			else: play_move("cecilya/spec_air")
 
 	# --- ULTIME ---
 	elif Input.is_action_just_pressed(get_input_string("attack_ultimate")):
