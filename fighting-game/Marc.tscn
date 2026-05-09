@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cd7t7xpmbu3cx" path="res://FighterBase.tscn" id="1_svb0j"]
 [ext_resource type="Script" uid="uid://w0wqeg7ixj5h" path="res://scripts/characters/marc_standard.gd" id="2_svb0j"]
 [ext_resource type="PackedScene" uid="uid://d2ln0247hkhtu" path="res://Stand.tscn" id="3_u0p0g"]
-[ext_resource type="Texture2D" uid="uid://cvrpbss176b5" path="res://spritesheet_president.png" id="3_ycs55"]
+[ext_resource type="Texture2D" uid="uid://dk12tj4e1i6fg" path="res://spritesheet_marc_gpt.png" id="4_u0p0g"]
 
 [sub_resource type="Animation" id="Animation_u0p0g"]
 resource_name = "air_dash_attack"
@@ -569,7 +569,7 @@ stand_scene = ExtResource("3_u0p0g")
 position = Vector2(0, -34)
 
 [node name="Sprite2D" parent="." index="1" unique_id=486936260]
-texture = ExtResource("3_ycs55")
+texture = ExtResource("4_u0p0g")
 
 [node name="AnimationPlayer" parent="." index="2" unique_id=1460908990]
 libraries/marc = SubResource("AnimationLibrary_u0p0g")

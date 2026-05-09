@@ -137,7 +137,7 @@ func take_damage(damage: float, base_knockback: float, knockback_direction: Vect
 	# --- SÉCURITÉ ANTI MULTI-HIT ---
 	if invuln_timer > 0:
 		return 
-	invuln_timer = 0.2 
+	invuln_timer = 0.25
 	current_hp -= damage
 	if current_hp <= 0: current_hp = 0
 	# 1. Calcul du ratio de vie perdue (0.0 à 1.0)
