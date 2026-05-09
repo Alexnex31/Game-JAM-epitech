@@ -173,6 +173,7 @@ polygon = PackedVector2Array(-3, -19, 24, -19, 10, 1)
 
 [node name="HitSound" type="AudioStreamPlayer" parent="." unique_id=230590469]
 stream = ExtResource("2_wabvh")
+volume_db = 5.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
