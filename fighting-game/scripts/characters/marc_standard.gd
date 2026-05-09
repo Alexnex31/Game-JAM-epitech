@@ -16,6 +16,13 @@ func _ready():
 		my_stand.hide()
 
 func _physics_process(delta):
+	if not is_attacking:
+		if is_on_floor():
+			if $AnimationPlayer.has_animation("RESET"):
+				$AnimationPlayer.play("RESET")
+		else:
+			if $AnimationPlayer.has_animation("RESET_AIR"):
+				$AnimationPlayer.play("RESET_AIR")
 	if not is_attacking and not is_being_grabbed and knockback_velocity.length() <= 50:
 		check_attack_inputs()
 	super._physics_process(delta)
@@ -27,31 +34,31 @@ func check_attack_inputs():
 	
 	if Input.is_action_just_pressed(get_input_string("attack_normal")):
 		if is_on_floor():
-			if up: play_move("uppercut")
-			elif down: play_move("poirier")
-			elif side: play_move("dash_attack")
-			else: play_move("neutral")
+			if up: play_move("marc/uppercut")
+			elif down: play_move("marc/poirier")
+			elif side: play_move("marc/dash_attack")
+			else: play_move("marc/neutral")
 		else:
-			if up: play_move("air_headbutt")
+			if up: play_move("marc/air_headbutt")
 			elif down: 
-				play_move("air_kick")
+				play_move("marc/air_kick")
 				velocity.y = 0
-			elif side: play_move("air_dash_attack")
-			else: play_move("air_spin")
+			elif side: play_move("marc/air_dash_attack")
+			else: play_move("marc/air_spin")
 
 	elif Input.is_action_just_pressed(get_input_string("attack_special")):
 		if is_on_floor():
-			if up: play_move("spec_up")
-			elif down: play_move("spec_down")
-			elif side: play_move("spec_side")
-			else: play_move("spec_neutral")
+			if up: play_move("marc/spec_up")
+			elif down: play_move("marc/spec_down")
+			elif side: play_move("marc/spec_side")
+			else: play_move("marc/spec_neutral")
 		else:
-			if up: play_move("spec_air_headbutt")
+			if up: play_move("marc/spec_air_headbutt")
 			elif down: 
-				play_move("spec_air_kick")
+				play_move("marc/spec_air_kick")
 				velocity.y = 0
-			elif side: play_move("spec_air_dash_attack")
-			else: play_move("spec_air")
+			elif side: play_move("marc/spec_air_dash_attack")
+			else: play_move("marc/spec_air")
 
 	# --- ULTIME (Invoquer / Rappeler le Stand) ---
 	elif Input.is_action_just_pressed(get_input_string("attack_ultimate")):
@@ -63,7 +70,7 @@ func toggle_stand():
 		my_stand.show()
 		# On place le stand juste derrière le joueur lors de l'invocation
 		my_stand.global_position = global_position + Vector2(-50 * facing_direction, -20)
-		my_stand.play_move("summon")
+		my_stand.play_move("marc/summon")
 	else:
 		my_stand.hide()
 

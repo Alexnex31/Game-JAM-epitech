@@ -118,16 +118,18 @@ func _physics_process(delta):
 	move_and_slide()
 
 func update_facing():
+	# 1. On gère le visuel du Sprite (je garde ta logique qui marche pour tes sprites)
 	if facing_direction == 1:
 		$Sprite2D.flip_h = true
 	else:
 		$Sprite2D.flip_h = false
 		
+	# 2. LE FIX : On utilise l'échelle (scale) comme un miroir
 	if has_node("Hitbox"):
-		$Hitbox.position.x = abs($Hitbox.position.x) * facing_direction
+		$Hitbox.scale.x = facing_direction
 		
 	if has_node("GrabArea"):
-		$GrabArea.position.x = abs($GrabArea.position.x) * facing_direction
+		$GrabArea.scale.x = facing_direction
 
 # --- SYSTEME DE COMBAT ---
 

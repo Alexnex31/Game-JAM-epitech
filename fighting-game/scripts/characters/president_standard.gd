@@ -100,6 +100,7 @@ func spec_neutral():
 	modulate = Color.RED
 
 func start_ultimate():
+	current_ultimate = 0.0 # On vide la jauge
 	is_mini = true
 	mini_timer = 8.0 
 	scale = Vector2(0.5, 0.5) 
