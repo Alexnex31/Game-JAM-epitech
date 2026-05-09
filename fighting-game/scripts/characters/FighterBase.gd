@@ -137,6 +137,11 @@ func take_damage(damage: float, base_knockback: float, knockback_direction: Vect
 	# --- SÉCURITÉ ANTI MULTI-HIT ---
 	if invuln_timer > 0:
 		return 
+	if has_node("HitSound"):
+		# ASTUCE DE PRO : On change légèrement la hauteur du son (Pitch) 
+		# à chaque coup pour que ça ne paraisse jamais répétitif !
+		$HitSound.pitch_scale = randf_range(0.8, 1.2) 
+		$HitSound.play()
 	invuln_timer = 0.25
 	current_hp -= damage
 	if current_hp <= 0: current_hp = 0

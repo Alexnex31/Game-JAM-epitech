@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cd7t7xpmbu3cx"]
 
 [ext_resource type="Script" uid="uid://cmgjio17olcfa" path="res://scripts/characters/FighterBase.gd" id="1_fg743"]
+[ext_resource type="AudioStream" uid="uid://cvb8gkl5dnc7i" path="res://Punch Sound Effect..wav" id="2_wabvh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wabvh"]
 radius = 15.0
@@ -169,6 +170,9 @@ disabled = true
 [node name="PlayerMarker" type="Polygon2D" parent="." unique_id=87823308]
 position = Vector2(-9, -122)
 polygon = PackedVector2Array(-3, -19, 24, -19, 10, 1)
+
+[node name="HitSound" type="AudioStreamPlayer" parent="." unique_id=230590469]
+stream = ExtResource("2_wabvh")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

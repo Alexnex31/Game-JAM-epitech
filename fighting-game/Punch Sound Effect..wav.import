@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cvb8gkl5dnc7i"
+path="res://.godot/imported/Punch Sound Effect..wav-21cb41c4cc851157dcc815b3ae1a7aae.sample"
+
+[deps]
+
+source_file="res://Punch Sound Effect..wav"
+dest_files=["res://.godot/imported/Punch Sound Effect..wav-21cb41c4cc851157dcc815b3ae1a7aae.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
