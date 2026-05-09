@@ -19,7 +19,6 @@ var current_attack_knockback: float = 600.0
 
 # --- JAUGE D'ULTIME ---
 @export var max_ultimate: float = 100.0
-
 @export var current_hp: float
 
 # Timer de Hitstun (pour bloquer la manette après un coup)
@@ -33,22 +32,26 @@ var grabbed_opponent: Fighter = null
 var double_jump_left: int = 1
 var facing_direction: int = 1
 
-# --- NOUVEAU : Limite d'attaques en l'air ---
+# --- Limite d'attaques en l'air ---
 var max_air_attacks: int = 2
 var air_attacks_left: int = 2
 
 var invuln_timer: float = 0.0 
 
-func _process(delta):
+# On remplace _process par _physics_process pour que la gravité fonctionne bien
+func _physics_process(delta):
 	if master_player == null or not visible:
 		return
-	
+
 	if invuln_timer > 0:
 		invuln_timer -= delta
-	# 1. Le Stand regarde la même direction que son maître
-	# ET on applique le FIX MIROIR pour la Hitbox !
-	if master_player.facing_direction == 1:
-		$Sprite2D.flip_h = true # Ou true selon ton sprite
+
+	# 1. On synchronise la direction propre du Stand avec celle du maître
+	facing_direction = master_player.facing_direction
+
+	# 2. LE FIX MIROIR : On utilise l'échelle et non la position pour contrer l'AnimationPlayer
+	if facing_direction == 1:
+		$Sprite2D.flip_h = true
 		if has_node("Hitbox"): 
 			$Hitbox.scale.x = 1
 	else:
@@ -56,55 +59,17 @@ func _process(delta):
 		if has_node("Hitbox"): 
 			$Hitbox.scale.x = -1
 
-	# 2. Si le Stand n'attaque pas, il suit le joueur doucement (effet de flottement)
+	# 3. Logique de Mouvement (Le Fix physique)
 	if not is_attacking:
-		if $AnimationPlayer.has_animation("stand/RESET_AIR"):
-			$AnimationPlayer.play("stand/RESET_AIR")
-		# Il se place un peu au-dessus et derrière le joueur
-		var target_pos = master_player.global_position + Vector2(-60 * master_player.facing_direction, -40)
+		# Le Stand flotte derrière le joueur
+		var target_pos = master_player.global_position + Vector2(-60 * facing_direction, -40)
 		global_position = global_position.lerp(target_pos, 5 * delta)
+		velocity = Vector2.ZERO
 	else:
+		# Pendant une attaque, on applique la gravité et ON BOUGE VRAIMENT
+		velocity.y += (gravity * gravity_multiplier) * delta
 		move_and_slide()
 
-func take_damage(damage: float, base_knockback: float, knockback_direction: Vector2):
-	# --- SÉCURITÉ ANTI MULTI-HIT ---
-	if invuln_timer > 0:
-		return 
-	invuln_timer = 0.2
-	current_hp = master_player.current_ultimate
-	current_hp -= damage
-	if damage > master_player.current_ultimate:
-		master_player.current_ultimate = damage
-	master_player.current_ultimate -= damage
-	if current_hp <= 0:
-		current_hp = 0
-		master_player.is_stand_active = false
-		self.hide()
-	# 1. Calcul du ratio de vie perdue (0.0 à 1.0)
-	var safe_max_hp = max(max_hp, 1.0) 
-	var missing_health_ratio = (safe_max_hp - current_hp) / safe_max_hp 
-
-	# 2. LE SECRET DU KNOCKBACK : La courbe exponentielle
-	# Formule : 1.0 + (ratio * ratio * multiplicateur_de_puissance)
-	var power_factor = 2.0 # Augmente ce chiffre pour que les persos volent encore plus loin à bas PV
-	var knockback_multiplier = 1.0 + (missing_health_ratio * missing_health_ratio * power_factor)
-	
-	# 3. Calcul final avec le poids et le scaling global
-	var safe_weight = max(weight, 0.1) 
-	var final_knockback = (base_knockback * knockback_multiplier * knockback_scaling) / safe_weight
-	
-	# 4. Sécurité de direction
-	var safe_direction = knockback_direction
-	if safe_direction.length() == 0:
-		safe_direction = Vector2(-facing_direction, -1)
-
-	# 5. Application de l'impulsion
-	velocity = safe_direction.normalized() * final_knockback
-	knockback_velocity = velocity 
-	
-	# Interruption des actions
-	is_attacking = false 
-# Fonction appelée par Marc quand il appuie sur le bouton Spécial
 func command_attack(anim_name: String):
 	if not visible:
 		return
@@ -118,7 +83,9 @@ func command_attack(anim_name: String):
 # A appeler à la fin de chaque animation du Stand via la piste Call Method !
 func end_attack():
 	is_attacking = false
-	
+
+# --- FONCTIONS PHYSIQUES DES ATTAQUES ---
+
 func power_jump():
 	velocity.y = -800
 	velocity.x = 0
@@ -134,15 +101,50 @@ func power_dash():
 func spec_neutral():
 	return
 
+# --- DEGATS ---
+
 func _on_hitbox_area_entered(area):
 	if area.name == "Hurtbox" and area.get_parent() != master_player and area.get_parent() != self:
 		var ennemi = area.get_parent()
 		
-		if ennemi.invuln_timer <= 0:
-			var direction = (ennemi.global_position - global_position).normalized()
-			direction.y -= 0.5 
+		# --- LA NOUVELLE SÉCURITÉ EST ICI ---
+		# On vérifie que la cible possède bien une fonction pour prendre des coups
+		if ennemi.has_method("take_damage"):
+			if "invuln_timer" in ennemi and ennemi.invuln_timer <= 0:
+				var direction = (ennemi.global_position - global_position).normalized()
+				direction.y -= 0.5 
+				
+				# Le Stand remplit la jauge d'Ultime de son maître !
+				if "current_ultimate" in master_player:
+					master_player.current_ultimate = clamp(master_player.current_ultimate + current_attack_damage * 0.75, 0.0, master_player.max_ultimate)
+				
+				ennemi.take_damage(current_attack_damage, current_attack_knockback, direction)
 			
-			# Le Stand remplit la jauge d'Ultime de son maître !
-			master_player.current_ultimate = clamp(master_player.current_ultimate + current_attack_damage * 0.75, 0.0, master_player.max_ultimate)
-			
-			ennemi.take_damage(current_attack_damage, current_attack_knockback, direction)
+			# --- A AJOUTER A LA FIN DE stand.gd ---
+
+func take_damage(damage: float, base_knockback: float, knockback_direction: Vector2):
+	if invuln_timer > 0:
+		return
+	invuln_timer = 0.2
+
+	current_hp -= damage
+
+	# Le Stand subit un knockback (recul) physique
+	var safe_weight = max(weight, 0.1)
+	var final_knockback = (base_knockback * knockback_scaling) / safe_weight
+
+	var safe_direction = knockback_direction
+	if safe_direction.length() == 0:
+		safe_direction = Vector2(-facing_direction, -1)
+
+	velocity = safe_direction.normalized() * final_knockback
+	is_attacking = false
+
+	# Si le Stand tombe à 0 PV, il se brise !
+	if current_hp <= 0:
+		current_hp = 0
+		hide()
+		# On prévient le maître que le Stand est mort
+		if master_player:
+			master_player.is_stand_active = false
+			master_player.current_ultimate = 0 # Marc perd toute sa jauge !
