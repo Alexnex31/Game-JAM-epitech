@@ -109,7 +109,7 @@ func _on_hitbox_area_entered(area):
 		
 		# --- LA NOUVELLE SÉCURITÉ EST ICI ---
 		# On vérifie que la cible possède bien une fonction pour prendre des coups
-		if ennemi.has_method("take_damage"):
+		if ennemi.has_method("take_damage"):                                                                                                                                                                                                                                                                                                                                            
 			if "invuln_timer" in ennemi and ennemi.invuln_timer <= 0:
 				var direction = (ennemi.global_position - global_position).normalized()
 				direction.y -= 0.5 

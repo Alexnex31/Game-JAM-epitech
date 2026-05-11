@@ -89,6 +89,9 @@ func spec_neutral():
 	current_attack_damage = 5.0 # Fait peu de dégâts
 	current_attack_knockback = 500.0 # Repousse violemment
 
+func power_jump():
+	velocity.y = -800
+
 func earthquake():
 	current_attack_damage = 15.0
 	current_attack_knockback = 800.0

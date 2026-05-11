@@ -44,7 +44,7 @@ func check_attack_inputs():
 			else: play_move("marc/neutral")
 		else:
 			if up: play_move("marc/air_headbutt")
-			elif down: 
+			elif down:
 				play_move("marc/air_kick")
 				velocity.y = 0
 			elif side: play_move("marc/air_dash_attack")
@@ -98,3 +98,6 @@ func play_move(anim_name: String):
 		$AnimationPlayer.play(anim_name)
 	else:
 		print("ATTENTION: L'animation '", anim_name, "' manque sur Marc !")
+
+func power_jump():
+	velocity.y = -800
